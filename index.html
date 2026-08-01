@@ -203,14 +203,14 @@ function statusColor(d) {
   return stageColor(d.stage);
 }
 
-const KEY = "buzz_crm_deals_v3";   // bumped: adds client records + industry/website fields
+const KEY = "buzz_crm_deals_v4";   // bumped: enriched Jael + Feisal with contact/website info
 const CUR_KEY = "buzz_crm_currency";
 
 const LEADS_SEED = [
-  { kind:"lead", deal:"Jael Musimbi – Google Workspace", company:"Bloom Balance", service:"Google Workspace", contact:"Jael Musimbi", email:"", phone:"", industry:"", website:"", stage:"Closed Won", amount:1267, by:"WPfoss", desc:"Jael wanted Google Workspace starter flexible price. She has already paid and setup is in session." },
+  { kind:"lead", deal:"Jael Musimbi – Google Workspace", company:"Bloom Balance Initiative", service:"Google Workspace", contact:"Jael Musimbi", email:"musimbijael11@gmail.com", phone:"254725677723", industry:"Organization", website:"https://bloombalanceinitiative.org", stage:"Closed Won", amount:1267, by:"WPfoss", desc:"Jael wanted Google Workspace starter flexible price. Already paid and setup in session. Subscribed to Google Workspace; next she wants a website." },
   { kind:"lead", deal:"Kencharge Google Workspace", company:"Kencharge", service:"Google Workspace", contact:"Shelmith Ireri", email:"", phone:"", industry:"", website:"", stage:"Proposal/Price Quote Sent", amount:25334, by:"WPfoss", desc:"They wanted Google Workspace commit plan for 2 accounts. A proposal and invoice was sent." },
   { kind:"lead", deal:"Skyward Airlines Cloudflare Management", company:"Skyward Airlines", service:"Website Management", contact:"Lewis (Skyward Airlines)", email:"", phone:"", industry:"Airline", website:"", stage:"Proposal/Price Quote Sent", amount:20000, by:"WPfoss", desc:"Wants us to manage and migrate their website to Cloudflare. 20k first month then 15k every month." },
-  { kind:"lead", deal:"Feisal Google Workspace", company:"Profyl", service:"Google Workspace", contact:"Feisal Haji", email:"", phone:"", industry:"", website:"", stage:"Closed Won", amount:3798, by:"WPfoss", desc:"Purchased Google Workspace from us." },
+  { kind:"lead", deal:"Feisal Google Workspace", company:"Profyl", service:"Google Workspace", contact:"Feisal Haji", email:"", phone:"254795279998", industry:"Web design", website:"https://feisalhaji.com", stage:"Closed Won", amount:3798, by:"WPfoss", desc:"Purchased Google Workspace from us. Subscribed to Google Workspace; next wants a website. Also: iprofyl.uk" },
   { kind:"lead", deal:"Tinia Website Development", company:"Tinia", service:"Website Development", contact:"Silas", email:"", phone:"", industry:"", website:"", stage:"Proposal/Price Quote Sent", amount:60000, by:"WPfoss", desc:"Website development service." },
   { kind:"lead", deal:"Rancesecurity Web Design", company:"Rancesecurity", service:"Web Design", contact:"Collins", email:"", phone:"", industry:"", website:"", stage:"Proposal/Price Quote Sent", amount:40000, by:"", desc:"Website development service." },
   { kind:"lead", deal:"Takaful Insurance – Google Workspace", company:"Takaful Insurance of Africa (TIA)", service:"Google Workspace", contact:"Procurement", email:"", phone:"", industry:"Insurance", website:"", stage:"Closed Lost", amount:1929646, by:"WPfoss", desc:"Google Workspace. Deal did not close." },
@@ -346,7 +346,7 @@ function viewClients() {
     { k:"company", h:"Client", cell: d => `<td><strong>${esc(d.company||nameOf(d))}</strong>${d.industry?`<div class="sub">${esc(d.industry)}</div>`:(isWon(d)?`<div class="sub">${esc(d.deal)}</div>`:"")}</td>` },
     { k:"contact", h:"Contact", cell: contactCell },
     { k:"service", h:"Services", cell: d => `<td>${esc(d.service||"—")}</td>` },
-    { k:"website", h:"Website", cell: d => `<td>${isClient(d)?webLink(d.website):'<span class="muted">—</span>'}</td>` },
+    { k:"website", h:"Website", cell: d => `<td>${webLink(d.website)}</td>` },
     { k:"status", h:"Status", cell: d => `<td>${pill(statusLabel(d), statusColor(d))}</td>` },
     { k:"amount", h:"Paid", cell: d => `<td class="amt" style="color:var(--green)">${money(d.amount)}</td>` },
   ]);
