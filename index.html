@@ -16,31 +16,48 @@
     --accent-2: #ffcf40;
     --green: #2ecc71;
     --blue: #3aa0ff;
+    --orange: #ff9f43;
     --red: #ff5c6c;
     --purple: #b085f5;
     --radius: 12px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; height: 100%; }
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg); color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 14px; line-height: 1.45;
+    display: flex; min-height: 100vh;
   }
-  header {
-    display: flex; align-items: center; gap: 14px;
-    padding: 16px 22px;
-    border-bottom: 1px solid var(--line);
-    background: linear-gradient(180deg, #14171e, #0f1115);
-    position: sticky; top: 0; z-index: 30;
-    flex-wrap: wrap;
-  }
-  .logo { font-size: 20px; font-weight: 800; letter-spacing: .3px; }
-  .logo span { color: var(--accent); }
-  .spacer { flex: 1; }
   input, select, textarea, button { font-family: inherit; font-size: 14px; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 220px; flex-shrink: 0; background: #12151b; border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh;
+  }
+  .brand { padding: 20px 18px; font-size: 20px; font-weight: 800; border-bottom: 1px solid var(--line); }
+  .brand span { color: var(--accent); }
+  .nav { padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+    cursor: pointer; color: var(--muted); font-weight: 600;
+  }
+  .nav-item:hover { background: var(--panel-2); color: var(--text); }
+  .nav-item.active { background: var(--panel-2); color: var(--text); }
+  .nav-item .ico { width: 18px; text-align: center; }
+  .nav-item .n { margin-left: auto; font-size: 11px; background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 0 8px; color: var(--muted); }
+  .nav-foot { padding: 12px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+
+  /* Main */
+  .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .topbar {
+    display: flex; align-items: center; gap: 12px; padding: 16px 24px;
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(15,17,21,.92);
+    backdrop-filter: blur(6px); z-index: 20; flex-wrap: wrap;
+  }
+  .topbar h1 { font-size: 20px; margin: 0; }
+  .spacer { flex: 1; }
   .search {
     background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
     padding: 9px 12px; border-radius: 10px; min-width: 220px; outline: none;
@@ -48,47 +65,50 @@
   .search:focus { border-color: var(--accent); }
   .btn {
     background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
-    padding: 9px 14px; border-radius: 10px; cursor: pointer; font-weight: 600;
-    transition: .15s; white-space: nowrap;
+    padding: 9px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: .15s; white-space: nowrap;
   }
   .btn:hover { border-color: var(--accent); }
   .btn.primary { background: var(--accent); color: #1a1300; border-color: var(--accent); }
   .btn.primary:hover { background: var(--accent-2); }
   .btn.ghost { background: transparent; }
+  .btn.sm { padding: 6px 10px; font-size: 12px; }
   .btn.danger:hover { border-color: var(--red); color: var(--red); }
+  .content { padding: 22px 24px 60px; }
 
-  .stats { display: flex; gap: 12px; padding: 18px 22px 6px; flex-wrap: wrap; }
-  .stat {
-    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 14px 16px; min-width: 150px; flex: 1;
-  }
-  .stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
-  .stat .value { font-size: 22px; font-weight: 800; margin-top: 4px; }
-  .stat .value.green { color: var(--green); }
-  .stat .value.gold { color: var(--accent); }
+  /* KPI cards */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; border-left: 4px solid var(--line); }
+  .kpi .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi .value { font-size: 24px; font-weight: 800; margin-top: 6px; }
+  .kpi.green { border-left-color: var(--green); } .kpi.green .value { color: var(--green); }
+  .kpi.red { border-left-color: var(--red); } .kpi.red .value { color: var(--red); }
+  .kpi.gold { border-left-color: var(--accent); } .kpi.gold .value { color: var(--accent); }
+  .kpi.blue { border-left-color: var(--blue); } .kpi.blue .value { color: var(--blue); }
+  .kpi.purple { border-left-color: var(--purple); } .kpi.purple .value { color: var(--purple); }
 
-  .toolbar { display: flex; gap: 10px; padding: 10px 22px 18px; align-items: center; flex-wrap: wrap; }
-  .toolbar .tabs { display: flex; gap: 6px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 4px; }
-  .tab { padding: 7px 14px; border-radius: 8px; cursor: pointer; color: var(--muted); font-weight: 600; }
-  .tab.active { background: var(--panel-2); color: var(--text); }
+  .section-title { font-size: 15px; font-weight: 700; margin: 24px 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+
+  /* Stage breakdown bars */
+  .breakdown { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .brow { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .brow:last-child { margin-bottom: 0; }
+  .brow .name { width: 190px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .brow .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .brow .bar { flex: 1; height: 10px; background: var(--panel-2); border-radius: 20px; overflow: hidden; }
+  .brow .bar > span { display: block; height: 100%; border-radius: 20px; }
+  .brow .amt { width: 150px; text-align: right; color: var(--muted); font-size: 13px; }
 
   /* Board */
-  .board { display: flex; gap: 14px; padding: 0 22px 40px; overflow-x: auto; align-items: flex-start; }
-  .col {
-    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
-    min-width: 280px; width: 280px; flex-shrink: 0; display: flex; flex-direction: column;
-  }
+  .board { display: flex; gap: 14px; overflow-x: auto; align-items: flex-start; padding-bottom: 10px; }
+  .col { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); min-width: 270px; width: 270px; flex-shrink: 0; display: flex; flex-direction: column; border-top: 3px solid var(--line); }
   .col-head { padding: 12px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .col-title { font-weight: 700; }
+  .col-title { font-weight: 700; font-size: 13px; }
   .col-count { color: var(--muted); font-size: 12px; background: var(--panel-2); padding: 1px 8px; border-radius: 20px; }
   .col-sum { margin-left: auto; color: var(--muted); font-size: 12px; }
-  .col-body { padding: 10px; display: flex; flex-direction: column; gap: 10px; min-height: 60px; }
+  .col-body { padding: 10px; display: flex; flex-direction: column; gap: 10px; min-height: 50px; }
   .col-body.drag-over { background: rgba(245,179,1,.06); }
-  .card {
-    background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
-    padding: 12px; cursor: grab; transition: .12s;
-  }
+  .card { background: var(--panel-2); border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 10px; padding: 12px; cursor: grab; transition: .12s; }
   .card:hover { border-color: var(--accent); transform: translateY(-1px); }
   .card.dragging { opacity: .5; }
   .card .deal { font-weight: 700; margin-bottom: 4px; }
@@ -98,297 +118,349 @@
   .badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); }
 
   /* Table */
-  table { width: calc(100% - 44px); margin: 0 22px 40px; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); }
-  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; cursor: pointer; user-select: none; }
-  tbody tr:hover, tr:hover { background: var(--panel-2); }
+  .table-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; cursor: pointer; user-select: none; background: #14171e; }
   tbody tr { cursor: pointer; }
-  td .amt { font-weight: 700; color: var(--accent); }
-  .pill { font-size: 12px; padding: 3px 10px; border-radius: 20px; display: inline-block; font-weight: 600; }
+  tbody tr:hover { background: var(--panel-2); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.amt { font-weight: 700; color: var(--accent); white-space: nowrap; }
+  td .sub { color: var(--muted); font-size: 12px; }
+  .row-accent { border-left: 3px solid var(--line); }
+  a.link { color: var(--blue); text-decoration: none; }
+  a.link:hover { text-decoration: underline; }
+  .pill { font-size: 12px; padding: 3px 10px; border-radius: 20px; display: inline-block; font-weight: 600; white-space: nowrap; }
+  .empty { color: var(--muted); text-align: center; padding: 50px 20px; }
+  .muted { color: var(--muted); }
 
   /* Modal */
   .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
   .overlay.open { display: flex; }
-  .modal { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; }
+  .modal { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; }
   .modal-head { padding: 18px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; }
   .modal-head h2 { margin: 0; font-size: 18px; }
   .modal-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .field { display: flex; flex-direction: column; gap: 5px; }
   .field.full { grid-column: 1 / -1; }
   .field label { color: var(--muted); font-size: 12px; font-weight: 600; }
-  .field input, .field select, .field textarea {
-    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
-    padding: 10px 12px; border-radius: 10px; outline: none; width: 100%;
-  }
+  .field input, .field select, .field textarea { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); padding: 10px 12px; border-radius: 10px; outline: none; width: 100%; }
   .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
   .field textarea { resize: vertical; min-height: 70px; }
   .modal-foot { padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 10px; justify-content: space-between; }
-  .empty { color: var(--muted); text-align: center; padding: 50px 20px; }
   .close-x { background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; margin-left: auto; }
   .hidden { display: none !important; }
-  .hint { color: var(--muted); font-size: 12px; padding: 0 22px 18px; }
+
+  @media (max-width: 760px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; flex-direction: column; }
+    .nav { flex-direction: row; flex-wrap: wrap; }
+    .nav-item .n { display: none; }
+    .modal-body { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">Buzz <span>CRM</span> 🐝</div>
-  <div class="spacer"></div>
-  <input id="search" class="search" placeholder="Search deals, companies, contacts…" />
-  <button class="btn" id="importBtn">Import CSV</button>
-  <button class="btn" id="exportBtn">Export CSV</button>
-  <button class="btn primary" id="addBtn">+ Add Lead</button>
-  <input type="file" id="importFile" accept=".csv" class="hidden" />
-</header>
+  <aside class="sidebar">
+    <div class="brand">Buzz <span>CRM</span> 🐝</div>
+    <nav class="nav" id="nav"></nav>
+    <div class="nav-foot">
+      <select id="currency" class="btn" style="text-align:left">
+        <option value="KSh">KSh (KES)</option>
+        <option value="$">$ (USD)</option>
+        <option value="€">€ (EUR)</option>
+        <option value="£">£ (GBP)</option>
+        <option value="₹">₹ (INR)</option>
+        <option value="">No symbol</option>
+      </select>
+      <button class="btn sm" id="importBtn">Import CSV</button>
+      <button class="btn sm" id="exportBtn">Export CSV</button>
+      <button class="btn sm danger ghost" id="resetBtn">Reset to sheet</button>
+      <input type="file" id="importFile" accept=".csv" class="hidden" />
+    </div>
+  </aside>
 
-<div class="stats" id="stats"></div>
-
-<div class="toolbar">
-  <div class="tabs">
-    <div class="tab active" data-view="board">Pipeline</div>
-    <div class="tab" data-view="table">Table</div>
+  <div class="main">
+    <div class="topbar">
+      <h1 id="viewTitle">Dashboard</h1>
+      <div class="spacer"></div>
+      <input id="search" class="search" placeholder="Search deals, companies, contacts…" />
+      <button class="btn primary" id="addBtn">+ Add Lead</button>
+    </div>
+    <div class="content" id="content"></div>
   </div>
-  <div class="spacer"></div>
-  <select id="currency" class="search" style="min-width:auto">
-    <option value="KSh">KSh (KES)</option>
-    <option value="$">$ (USD)</option>
-    <option value="€">€ (EUR)</option>
-    <option value="£">£ (GBP)</option>
-    <option value="₹">₹ (INR)</option>
-    <option value="">No symbol</option>
-  </select>
-</div>
 
-<div id="boardView"><div class="board" id="board"></div></div>
-<div id="tableView" class="hidden"></div>
-<div class="hint">Tip: drag cards between stages to update a deal. Everything saves automatically in this browser.</div>
-
-<!-- Modal -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="modalTitle">Add Lead</h2>
-      <button class="close-x" id="closeBtn">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="field full">
-        <label>Deal name *</label>
-        <input id="f_deal" placeholder="e.g. Acme – Google Workspace" />
+  <!-- Modal -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="modalTitle">Add Lead</h2>
+        <button class="close-x" id="closeBtn">&times;</button>
       </div>
-      <div class="field">
-        <label>Company</label>
-        <input id="f_company" placeholder="Company name" />
+      <div class="modal-body">
+        <div class="field full"><label>Deal name *</label><input id="f_deal" placeholder="e.g. Acme – Google Workspace" /></div>
+        <div class="field"><label>Company</label><input id="f_company" placeholder="Company name" /></div>
+        <div class="field"><label>Contact name</label><input id="f_contact" placeholder="Who you talk to" /></div>
+        <div class="field"><label>Email</label><input id="f_email" type="email" placeholder="name@company.com" /></div>
+        <div class="field"><label>Phone</label><input id="f_phone" placeholder="+254 …" /></div>
+        <div class="field"><label>Service</label><input id="f_service" placeholder="e.g. Website Development" /></div>
+        <div class="field"><label>Amount</label><input id="f_amount" type="number" step="0.01" placeholder="0" /></div>
+        <div class="field"><label>Stage</label><select id="f_stage"></select></div>
+        <div class="field"><label>Created by</label><input id="f_by" placeholder="You / your team" /></div>
+        <div class="field full"><label>Description / notes</label><textarea id="f_desc" placeholder="Context, next steps, what they want…"></textarea></div>
       </div>
-      <div class="field">
-        <label>Contact name</label>
-        <input id="f_contact" placeholder="Who you talk to" />
-      </div>
-      <div class="field">
-        <label>Service</label>
-        <input id="f_service" placeholder="e.g. Website Development" />
-      </div>
-      <div class="field">
-        <label>Amount</label>
-        <input id="f_amount" type="number" step="0.01" placeholder="0" />
-      </div>
-      <div class="field">
-        <label>Stage</label>
-        <select id="f_stage"></select>
-      </div>
-      <div class="field">
-        <label>Created by</label>
-        <input id="f_by" placeholder="You / your team" />
-      </div>
-      <div class="field full">
-        <label>Description / notes</label>
-        <textarea id="f_desc" placeholder="Context, next steps, what they want…"></textarea>
-      </div>
-    </div>
-    <div class="modal-foot">
-      <button class="btn danger ghost" id="deleteBtn">Delete</button>
-      <div style="display:flex;gap:10px">
-        <button class="btn ghost" id="cancelBtn">Cancel</button>
-        <button class="btn primary" id="saveBtn">Save</button>
+      <div class="modal-foot">
+        <button class="btn danger ghost" id="deleteBtn">Delete</button>
+        <div style="display:flex;gap:10px">
+          <button class="btn ghost" id="cancelBtn">Cancel</button>
+          <button class="btn primary" id="saveBtn">Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 <script>
+/* ---------- Config ---------- */
 const STAGES = [
-  { key: "New Lead",                    color: "#3aa0ff" },
-  { key: "Contacted",                   color: "#b085f5" },
-  { key: "Proposal/Price Quote Sent",   color: "#f5b301" },
-  { key: "Negotiation",                 color: "#ff9f43" },
-  { key: "Closed Won",                  color: "#2ecc71" },
-  { key: "Closed Lost",                 color: "#ff5c6c" },
+  { key: "New Lead",                  color: "#3aa0ff", type: "open" },
+  { key: "Contacted",                 color: "#b085f5", type: "open" },
+  { key: "Proposal/Price Quote Sent", color: "#f5b301", type: "open" },
+  { key: "Negotiation",               color: "#ff9f43", type: "open" },
+  { key: "Closed Won",                color: "#2ecc71", type: "won" },
+  { key: "Closed Lost",               color: "#ff5c6c", type: "lost" },
 ];
-const stageColor = k => (STAGES.find(s => s.key === k) || {}).color || "#9aa3b2";
-const KEY = "buzz_crm_deals_v1";
+const stageMeta = k => STAGES.find(s => s.key === k) || { key: k, color: "#9aa3b2", type: "open" };
+const stageColor = k => stageMeta(k).color;
+const isOpen = d => stageMeta(d.stage).type === "open";
+const isWon  = d => stageMeta(d.stage).type === "won";
+const isLost = d => stageMeta(d.stage).type === "lost";
+
+const KEY = "buzz_crm_deals_v2";      // bumped: new schema (email/phone) + Takaful=Lost
 const CUR_KEY = "buzz_crm_currency";
 
 const SEED = [
-  { deal:"Jael Musimbi – Google Workspace", company:"Bloom Balance", service:"Google Workspace", contact:"Jael Musimbi", stage:"Closed Won", amount:1267, by:"WPfoss", desc:"Jael wanted Google Workspace starter flexible price. She has already paid and setup is in session." },
-  { deal:"Kencharge Google Workspace", company:"Kencharge", service:"Google Workspace", contact:"Shelmith Ireri", stage:"Proposal/Price Quote Sent", amount:25334, by:"WPfoss", desc:"They wanted Google Workspace commit plan for 2 accounts. A proposal and invoice was sent." },
-  { deal:"Skyward Airlines Cloudflare Management", company:"Skyward Airlines", service:"Website Management", contact:"Lewis (Skyward Airlines)", stage:"Proposal/Price Quote Sent", amount:20000, by:"WPfoss", desc:"Skyward Airlines wants us to manage and migrate their website to Cloudflare. They will pay 20k first month and then 15k every month." },
-  { deal:"Feisal Google Workspace", company:"Profyl", service:"Google Workspace", contact:"Feisal Haji", stage:"Closed Won", amount:3798, by:"WPfoss", desc:"Purchased Google Workspace from us." },
-  { deal:"Tinia Website Development", company:"Tinia", service:"Website Development", contact:"Silas", stage:"Proposal/Price Quote Sent", amount:60000, by:"WPfoss", desc:"Website development service." },
-  { deal:"Rancesecurity Web Design", company:"Rancesecurity", service:"Web Design", contact:"Collins", stage:"Proposal/Price Quote Sent", amount:40000, by:"", desc:"Website development service." },
-  { deal:"Takaful Insurance – Google Workspace", company:"Takaful Insurance of Africa (TIA)", service:"Google Workspace", contact:"Procurement", stage:"Closed Lost", amount:1929646, by:"WPfoss", desc:"Google Workspace." },
+  { deal:"Jael Musimbi – Google Workspace", company:"Bloom Balance", service:"Google Workspace", contact:"Jael Musimbi", email:"", phone:"", stage:"Closed Won", amount:1267, by:"WPfoss", desc:"Jael wanted Google Workspace starter flexible price. She has already paid and setup is in session." },
+  { deal:"Kencharge Google Workspace", company:"Kencharge", service:"Google Workspace", contact:"Shelmith Ireri", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:25334, by:"WPfoss", desc:"They wanted Google Workspace commit plan for 2 accounts. A proposal and invoice was sent." },
+  { deal:"Skyward Airlines Cloudflare Management", company:"Skyward Airlines", service:"Website Management", contact:"Lewis (Skyward Airlines)", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:20000, by:"WPfoss", desc:"Skyward Airlines wants us to manage and migrate their website to Cloudflare. They will pay 20k first month and then 15k every month." },
+  { deal:"Feisal Google Workspace", company:"Profyl", service:"Google Workspace", contact:"Feisal Haji", email:"", phone:"", stage:"Closed Won", amount:3798, by:"WPfoss", desc:"Purchased Google Workspace from us." },
+  { deal:"Tinia Website Development", company:"Tinia", service:"Website Development", contact:"Silas", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:60000, by:"WPfoss", desc:"Website development service." },
+  { deal:"Rancesecurity Web Design", company:"Rancesecurity", service:"Web Design", contact:"Collins", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:40000, by:"", desc:"Website development service." },
+  { deal:"Takaful Insurance – Google Workspace", company:"Takaful Insurance of Africa (TIA)", service:"Google Workspace", contact:"Procurement", email:"", phone:"", stage:"Closed Lost", amount:1929646, by:"WPfoss", desc:"Google Workspace. Deal did not close." },
 ];
 
+/* ---------- State ---------- */
 let deals = load();
 let currency = localStorage.getItem(CUR_KEY) || "KSh";
-let view = "board";
+let route = "dashboard";
 let editingId = null;
 let search = "";
 let sortKey = null, sortDir = 1;
 
+const NAV = [
+  { id: "dashboard", label: "Dashboard", ico: "📊" },
+  { id: "pipeline",  label: "Pipeline",  ico: "🗂️" },
+  { id: "leads",     label: "Leads",     ico: "🎯" },
+  { id: "clients",   label: "Clients",   ico: "✅" },
+  { id: "lost",      label: "Lost",      ico: "❌" },
+  { id: "contacts",  label: "Contacts",  ico: "👥" },
+];
+
+/* ---------- Storage ---------- */
 function load() {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) {}
-  const seeded = SEED.map((d, i) => ({ id: uid(), createdAt: Date.now() + i, ...d }));
-  localStorage.setItem(KEY, JSON.stringify(seeded));
-  return seeded;
+  try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw); } catch (e) {}
+  return seed();
+}
+function seed() {
+  const s = SEED.map((d, i) => ({ id: uid(), createdAt: Date.now() + i, ...d }));
+  localStorage.setItem(KEY, JSON.stringify(s));
+  return s;
 }
 function save() { localStorage.setItem(KEY, JSON.stringify(deals)); }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
-function money(n) {
-  const v = Number(n) || 0;
-  return (currency ? currency + " " : "") + v.toLocaleString(undefined, { maximumFractionDigits: 2 });
-}
+function money(n) { const v = Number(n) || 0; return (currency ? currency + " " : "") + v.toLocaleString(undefined, { maximumFractionDigits: 2 }); }
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c])); }
+function sum(list) { return list.reduce((s, d) => s + (Number(d.amount) || 0), 0); }
 
-function filtered() {
+function filtered(base) {
   const q = search.trim().toLowerCase();
-  let list = deals.slice();
-  if (q) list = list.filter(d =>
-    [d.deal, d.company, d.contact, d.service, d.desc, d.stage].some(f => (f || "").toLowerCase().includes(q))
-  );
+  let list = (base || deals).slice();
+  if (q) list = list.filter(d => [d.deal, d.company, d.contact, d.email, d.phone, d.service, d.desc, d.stage].some(f => (f || "").toLowerCase().includes(q)));
   return list;
 }
-
-/* ---------- Stats ---------- */
-function renderStats() {
-  const list = filtered();
-  const open = list.filter(d => !d.stage.startsWith("Closed"));
-  const won = list.filter(d => d.stage === "Closed Won");
-  const openVal = open.reduce((s, d) => s + (Number(d.amount) || 0), 0);
-  const wonVal = won.reduce((s, d) => s + (Number(d.amount) || 0), 0);
-  document.getElementById("stats").innerHTML = `
-    <div class="stat"><div class="label">Total deals</div><div class="value">${list.length}</div></div>
-    <div class="stat"><div class="label">Open pipeline</div><div class="value gold">${money(openVal)}</div></div>
-    <div class="stat"><div class="label">Won revenue</div><div class="value green">${money(wonVal)}</div></div>
-    <div class="stat"><div class="label">Open deals</div><div class="value">${open.length}</div></div>
-  `;
+function stagePill(stage) {
+  const c = stageColor(stage);
+  return `<span class="pill" style="background:${c}22;color:${c}">${esc(stage)}</span>`;
 }
 
-/* ---------- Board ---------- */
-function renderBoard() {
-  const list = filtered();
-  const board = document.getElementById("board");
-  board.innerHTML = "";
-  STAGES.forEach(st => {
+/* ---------- Nav ---------- */
+function renderNav() {
+  document.getElementById("nav").innerHTML = NAV.map(n => {
+    let count = "";
+    if (n.id === "leads") count = deals.filter(isOpen).length;
+    else if (n.id === "clients") count = deals.filter(isWon).length;
+    else if (n.id === "lost") count = deals.filter(isLost).length;
+    else if (n.id === "contacts") count = deals.length;
+    else if (n.id === "pipeline") count = deals.length;
+    return `<div class="nav-item ${route===n.id?"active":""}" data-id="${n.id}">
+      <span class="ico">${n.ico}</span><span>${n.label}</span>${count!==""?`<span class="n">${count}</span>`:""}</div>`;
+  }).join("");
+  document.querySelectorAll(".nav-item").forEach(el => el.onclick = () => { route = el.dataset.id; render(); });
+}
+
+/* ---------- Views ---------- */
+function viewDashboard() {
+  const open = deals.filter(isOpen), won = deals.filter(isWon), lost = deals.filter(isLost);
+  const winRate = (won.length + lost.length) ? Math.round(won.length / (won.length + lost.length) * 100) : 0;
+  const kpis = [
+    ["gold",  "Open pipeline", money(sum(open)), open.length + " deals"],
+    ["green", "Won revenue",   money(sum(won)),  won.length + " clients"],
+    ["red",   "Lost value",    money(sum(lost)), lost.length + " lost"],
+    ["blue",  "Win rate",      winRate + "%",    won.length + " won / " + lost.length + " lost"],
+    ["purple","Total contacts",String(deals.length), "in your book"],
+  ];
+  const maxSum = Math.max(1, ...STAGES.map(s => sum(deals.filter(d => d.stage === s.key))));
+  const bars = STAGES.map(s => {
+    const items = deals.filter(d => d.stage === s.key);
+    const v = sum(items);
+    return `<div class="brow">
+      <div class="name"><span class="dot" style="background:${s.color}"></span>${esc(s.key)}</div>
+      <div class="bar"><span style="width:${Math.max(2, v/maxSum*100)}%;background:${s.color}"></span></div>
+      <div class="amt">${items.length} · ${money(v)}</div></div>`;
+  }).join("");
+  return `
+    <div class="kpis">${kpis.map(k => `<div class="kpi ${k[0]}"><div class="label">${k[1]}</div><div class="value">${k[2]}</div><div class="muted" style="font-size:12px;margin-top:4px">${k[3]}</div></div>`).join("")}</div>
+    <div class="section-title">Pipeline by stage</div>
+    <div class="breakdown">${bars}</div>`;
+}
+
+function dealTable(list, cols) {
+  if (!list.length) return `<div class="table-wrap"><div class="empty">Nothing here yet. Hit “+ Add Lead” to add one. 🐝</div></div>`;
+  if (sortKey) list = list.slice().sort((a, b) => {
+    let x = a[sortKey], y = b[sortKey];
+    if (sortKey === "amount") { x = Number(x)||0; y = Number(y)||0; }
+    else { x = (x||"").toString().toLowerCase(); y = (y||"").toString().toLowerCase(); }
+    return x < y ? -sortDir : x > y ? sortDir : 0;
+  });
+  const head = cols.map(c => `<th data-k="${c.k}">${c.h}${sortKey===c.k?(sortDir>0?" ▲":" ▼"):""}</th>`).join("");
+  const rows = list.map(d => `<tr data-id="${d.id}" class="row-accent" style="border-left-color:${stageColor(d.stage)}">
+    ${cols.map(c => c.cell(d)).join("")}</tr>`).join("");
+  return `<div class="table-wrap"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function wireTable() {
+  document.querySelectorAll("th[data-k]").forEach(th => th.onclick = () => {
+    const k = th.dataset.k; if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; } render();
+  });
+  document.querySelectorAll("tr[data-id]").forEach(tr => tr.onclick = () => openModal(tr.dataset.id));
+}
+
+const contactCell = d => `<td>${d.contact?esc(d.contact):'<span class="muted">—</span>'}
+  ${(d.email||d.phone)?`<div class="sub">${d.email?esc(d.email):""}${d.email&&d.phone?" · ":""}${d.phone?esc(d.phone):""}</div>`:""}</td>`;
+
+function viewLeads() {
+  const list = filtered(deals.filter(isOpen));
+  return `<p class="muted" style="margin-top:0">Active leads you are working — everyone not yet won or lost.</p>` + dealTable(list, [
+    { k:"deal", h:"Deal", cell: d => `<td><strong>${esc(d.deal)}</strong><div class="sub">${esc(d.company||"—")}</div></td>` },
+    { k:"contact", h:"Contact", cell: contactCell },
+    { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
+    { k:"stage", h:"Stage", cell: d => `<td>${stagePill(d.stage)}</td>` },
+    { k:"amount", h:"Amount", cell: d => `<td class="amt">${money(d.amount)}</td>` },
+  ]);
+}
+function viewClients() {
+  const list = filtered(deals.filter(isWon));
+  return `<p class="muted" style="margin-top:0">Won deals — your paying clients. 🟢</p>` + dealTable(list, [
+    { k:"company", h:"Client", cell: d => `<td><strong>${esc(d.company||d.deal)}</strong><div class="sub">${esc(d.deal)}</div></td>` },
+    { k:"contact", h:"Contact", cell: contactCell },
+    { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
+    { k:"stage", h:"Status", cell: d => `<td>${stagePill(d.stage)}</td>` },
+    { k:"amount", h:"Value", cell: d => `<td class="amt" style="color:var(--green)">${money(d.amount)}</td>` },
+  ]);
+}
+function viewLost() {
+  const list = filtered(deals.filter(isLost));
+  return `<p class="muted" style="margin-top:0">Lost leads — deals that did not close. 🔴</p>` + dealTable(list, [
+    { k:"deal", h:"Deal", cell: d => `<td><strong>${esc(d.deal)}</strong><div class="sub">${esc(d.company||"—")}</div></td>` },
+    { k:"contact", h:"Contact", cell: contactCell },
+    { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
+    { k:"stage", h:"Status", cell: d => `<td>${stagePill(d.stage)}</td>` },
+    { k:"amount", h:"Lost value", cell: d => `<td class="amt" style="color:var(--red)">${money(d.amount)}</td>` },
+  ]);
+}
+function viewContacts() {
+  const list = filtered(deals);
+  return `<p class="muted" style="margin-top:0">Everyone in your book, with their contact info and where their deal stands.</p>` + dealTable(list, [
+    { k:"contact", h:"Contact", cell: d => `<td><strong>${d.contact?esc(d.contact):'<span class="muted">—</span>'}</strong><div class="sub">${esc(d.company||"")}</div></td>` },
+    { k:"email", h:"Email", cell: d => `<td>${d.email?`<a class="link" href="mailto:${esc(d.email)}" onclick="event.stopPropagation()">${esc(d.email)}</a>`:'<span class="muted">—</span>'}</td>` },
+    { k:"phone", h:"Phone", cell: d => `<td>${d.phone?`<a class="link" href="tel:${esc(d.phone)}" onclick="event.stopPropagation()">${esc(d.phone)}</a>`:'<span class="muted">—</span>'}</td>` },
+    { k:"deal", h:"Deal", cell: d => `<td>${esc(d.deal)}</td>` },
+    { k:"stage", h:"Stage", cell: d => `<td>${stagePill(d.stage)}</td>` },
+  ]);
+}
+
+function viewPipeline() {
+  const list = filtered(deals);
+  return `<div class="board" id="board">${STAGES.map(st => {
     const items = list.filter(d => d.stage === st.key);
-    const sum = items.reduce((s, d) => s + (Number(d.amount) || 0), 0);
-    const col = document.createElement("div");
-    col.className = "col";
-    col.innerHTML = `
-      <div class="col-head">
-        <span class="dot" style="background:${st.color}"></span>
-        <span class="col-title">${st.key}</span>
-        <span class="col-count">${items.length}</span>
-        <span class="col-sum">${sum ? money(sum) : ""}</span>
-      </div>
-      <div class="col-body" data-stage="${esc(st.key)}"></div>`;
-    const body = col.querySelector(".col-body");
-    items.forEach(d => body.appendChild(cardEl(d)));
+    const s = sum(items);
+    return `<div class="col" style="border-top-color:${st.color}">
+      <div class="col-head"><span class="dot" style="background:${st.color}"></span>
+        <span class="col-title">${esc(st.key)}</span><span class="col-count">${items.length}</span>
+        <span class="col-sum">${s?money(s):""}</span></div>
+      <div class="col-body" data-stage="${esc(st.key)}">${items.map(d => cardHTML(d)).join("")}</div>
+    </div>`;
+  }).join("")}</div>`;
+}
+function cardHTML(d) {
+  return `<div class="card" draggable="true" data-id="${d.id}" style="border-left-color:${stageColor(d.stage)}">
+    <div class="deal">${esc(d.deal)}</div>
+    <div class="company">${esc(d.company||"—")}${d.contact?" · "+esc(d.contact):""}</div>
+    <div class="meta"><span class="amt">${money(d.amount)}</span>${d.service?`<span class="badge">${esc(d.service)}</span>`:""}</div>
+  </div>`;
+}
+function wirePipeline() {
+  document.querySelectorAll(".card").forEach(el => {
+    el.onclick = () => openModal(el.dataset.id);
+    el.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", el.dataset.id); el.classList.add("dragging"); });
+    el.addEventListener("dragend", () => el.classList.remove("dragging"));
+  });
+  document.querySelectorAll(".col-body").forEach(body => {
     body.addEventListener("dragover", e => { e.preventDefault(); body.classList.add("drag-over"); });
     body.addEventListener("dragleave", () => body.classList.remove("drag-over"));
     body.addEventListener("drop", e => {
       e.preventDefault(); body.classList.remove("drag-over");
       const id = e.dataTransfer.getData("text/plain");
       const d = deals.find(x => x.id === id);
-      if (d && d.stage !== st.key) { d.stage = st.key; save(); render(); }
+      if (d && d.stage !== body.dataset.stage) { d.stage = body.dataset.stage; save(); render(); }
     });
-    board.appendChild(col);
   });
-}
-function cardEl(d) {
-  const el = document.createElement("div");
-  el.className = "card";
-  el.draggable = true;
-  el.innerHTML = `
-    <div class="deal">${esc(d.deal)}</div>
-    <div class="company">${esc(d.company || "—")}${d.contact ? " · " + esc(d.contact) : ""}</div>
-    <div class="meta">
-      <span class="amt">${money(d.amount)}</span>
-      ${d.service ? `<span class="badge">${esc(d.service)}</span>` : ""}
-    </div>`;
-  el.addEventListener("click", () => openModal(d.id));
-  el.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", d.id); el.classList.add("dragging"); });
-  el.addEventListener("dragend", () => el.classList.remove("dragging"));
-  return el;
-}
-
-/* ---------- Table ---------- */
-function renderTable() {
-  let list = filtered();
-  if (sortKey) {
-    list.sort((a, b) => {
-      let x = a[sortKey], y = b[sortKey];
-      if (sortKey === "amount") { x = Number(x) || 0; y = Number(y) || 0; }
-      else { x = (x || "").toString().toLowerCase(); y = (y || "").toString().toLowerCase(); }
-      return x < y ? -sortDir : x > y ? sortDir : 0;
-    });
-  }
-  const cols = [["deal","Deal"],["company","Company"],["contact","Contact"],["service","Service"],["stage","Stage"],["amount","Amount"]];
-  const wrap = document.getElementById("tableView");
-  if (!list.length) { wrap.innerHTML = `<div class="empty">No deals yet. Hit “+ Add Lead” to start. 🐝</div>`; return; }
-  wrap.innerHTML = `<table><thead><tr>${cols.map(c =>
-    `<th data-k="${c[0]}">${c[1]}${sortKey===c[0]?(sortDir>0?" ▲":" ▼"):""}</th>`).join("")}</tr></thead>
-    <tbody>${list.map(d => `
-      <tr data-id="${d.id}">
-        <td><strong>${esc(d.deal)}</strong></td>
-        <td>${esc(d.company||"—")}</td>
-        <td>${esc(d.contact||"—")}</td>
-        <td>${esc(d.service||"—")}</td>
-        <td><span class="pill" style="background:${stageColor(d.stage)}22;color:${stageColor(d.stage)}">${esc(d.stage)}</span></td>
-        <td><span class="amt">${money(d.amount)}</span></td>
-      </tr>`).join("")}</tbody></table>`;
-  wrap.querySelectorAll("th").forEach(th => th.addEventListener("click", () => {
-    const k = th.dataset.k;
-    if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; }
-    renderTable();
-  }));
-  wrap.querySelectorAll("tr[data-id]").forEach(tr => tr.addEventListener("click", () => openModal(tr.dataset.id)));
 }
 
 /* ---------- Render ---------- */
 function render() {
-  renderStats();
-  document.getElementById("boardView").classList.toggle("hidden", view !== "board");
-  document.getElementById("tableView").classList.toggle("hidden", view !== "table");
-  if (view === "board") renderBoard(); else renderTable();
+  renderNav();
+  const nav = NAV.find(n => n.id === route);
+  document.getElementById("viewTitle").textContent = nav ? nav.label : "Dashboard";
+  const c = document.getElementById("content");
+  if (route === "dashboard") c.innerHTML = viewDashboard();
+  else if (route === "pipeline") { c.innerHTML = viewPipeline(); wirePipeline(); }
+  else if (route === "leads") { c.innerHTML = viewLeads(); wireTable(); }
+  else if (route === "clients") { c.innerHTML = viewClients(); wireTable(); }
+  else if (route === "lost") { c.innerHTML = viewLost(); wireTable(); }
+  else if (route === "contacts") { c.innerHTML = viewContacts(); wireTable(); }
 }
 
 /* ---------- Modal ---------- */
-function fillStageSelect() {
-  document.getElementById("f_stage").innerHTML = STAGES.map(s => `<option value="${esc(s.key)}">${esc(s.key)}</option>`).join("");
-}
+function fillStageSelect() { document.getElementById("f_stage").innerHTML = STAGES.map(s => `<option value="${esc(s.key)}">${esc(s.key)}</option>`).join(""); }
 function openModal(id) {
   editingId = id || null;
   const d = id ? deals.find(x => x.id === id) : {};
   document.getElementById("modalTitle").textContent = id ? "Edit Deal" : "Add Lead";
-  document.getElementById("f_deal").value = d.deal || "";
-  document.getElementById("f_company").value = d.company || "";
-  document.getElementById("f_contact").value = d.contact || "";
-  document.getElementById("f_service").value = d.service || "";
+  const set = (k, v) => document.getElementById(k).value = v || "";
+  set("f_deal", d.deal); set("f_company", d.company); set("f_contact", d.contact);
+  set("f_email", d.email); set("f_phone", d.phone); set("f_service", d.service);
   document.getElementById("f_amount").value = d.amount != null ? d.amount : "";
   document.getElementById("f_stage").value = d.stage || "New Lead";
-  document.getElementById("f_by").value = d.by || "";
-  document.getElementById("f_desc").value = d.desc || "";
+  set("f_by", d.by); set("f_desc", d.desc);
   document.getElementById("deleteBtn").style.visibility = id ? "visible" : "hidden";
   document.getElementById("overlay").classList.add("open");
   document.getElementById("f_deal").focus();
@@ -397,18 +469,12 @@ function closeModal() { document.getElementById("overlay").classList.remove("ope
 function saveModal() {
   const deal = document.getElementById("f_deal").value.trim();
   if (!deal) { document.getElementById("f_deal").focus(); return; }
-  const rec = {
-    deal,
-    company: document.getElementById("f_company").value.trim(),
-    contact: document.getElementById("f_contact").value.trim(),
-    service: document.getElementById("f_service").value.trim(),
-    amount: parseFloat(document.getElementById("f_amount").value) || 0,
-    stage: document.getElementById("f_stage").value,
-    by: document.getElementById("f_by").value.trim(),
-    desc: document.getElementById("f_desc").value.trim(),
-  };
-  if (editingId) { Object.assign(deals.find(x => x.id === editingId), rec); }
-  else { deals.unshift({ id: uid(), createdAt: Date.now(), ...rec }); }
+  const g = k => document.getElementById(k).value.trim();
+  const rec = { deal, company: g("f_company"), contact: g("f_contact"), email: g("f_email"), phone: g("f_phone"),
+    service: g("f_service"), amount: parseFloat(document.getElementById("f_amount").value) || 0,
+    stage: document.getElementById("f_stage").value, by: g("f_by"), desc: g("f_desc") };
+  if (editingId) Object.assign(deals.find(x => x.id === editingId), rec);
+  else deals.unshift({ id: uid(), createdAt: Date.now(), ...rec });
   save(); closeModal(); render();
 }
 function deleteDeal() {
@@ -420,67 +486,45 @@ function deleteDeal() {
 
 /* ---------- CSV ---------- */
 function exportCSV() {
-  const cols = ["deal","company","contact","service","stage","amount","by","desc"];
-  const head = ["Deal Name","Company","Contact","Service","Stage","Amount","Created By","Description"];
+  const cols = ["deal","company","contact","email","phone","service","stage","amount","by","desc"];
+  const head = ["Deal Name","Company","Contact","Email","Phone","Service","Stage","Amount","Created By","Description"];
   const rows = deals.map(d => cols.map(c => csvCell(d[c])).join(","));
   const blob = new Blob([head.join(",") + "\n" + rows.join("\n")], { type: "text/csv" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "buzz-crm-export.csv";
-  a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "buzz-crm-export.csv"; a.click();
 }
-function csvCell(v) {
-  const s = String(v == null ? "" : v);
-  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-}
+function csvCell(v) { const s = String(v == null ? "" : v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
 function parseCSV(text) {
   const rows = []; let row = [], cell = "", q = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (q) {
-      if (c === '"' && text[i+1] === '"') { cell += '"'; i++; }
-      else if (c === '"') q = false;
-      else cell += c;
-    } else {
-      if (c === '"') q = true;
-      else if (c === ",") { row.push(cell); cell = ""; }
-      else if (c === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; }
-      else if (c === "\r") {}
-      else cell += c;
-    }
-  }
+  for (let i = 0; i < text.length; i++) { const c = text[i];
+    if (q) { if (c === '"' && text[i+1] === '"') { cell += '"'; i++; } else if (c === '"') q = false; else cell += c; }
+    else { if (c === '"') q = true; else if (c === ",") { row.push(cell); cell = ""; }
+      else if (c === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; } else if (c === "\r") {} else cell += c; } }
   if (cell.length || row.length) { row.push(cell); rows.push(row); }
   return rows;
 }
 function importCSV(text) {
   const rows = parseCSV(text).filter(r => r.some(c => c.trim() !== ""));
   if (!rows.length) return;
-  // find header row (one containing "Deal")
-  let hi = rows.findIndex(r => r.some(c => /deal name|deal/i.test(c)));
-  if (hi < 0) hi = 0;
+  let hi = rows.findIndex(r => r.some(c => /deal name|deal/i.test(c))); if (hi < 0) hi = 0;
   const head = rows[hi].map(h => h.trim().toLowerCase());
   const idx = names => head.findIndex(h => names.some(n => h.includes(n)));
-  const iDeal = idx(["deal name","deal"]), iCo = idx(["company"]), iContact = idx(["contact"]),
-        iServ = idx(["service"]), iStage = idx(["stage"]), iAmt = idx(["amount"]),
-        iDesc = idx(["description","notes"]), iBy = idx(["created by","by"]);
+  const iDeal=idx(["deal name","deal"]), iCo=idx(["company"]), iContact=idx(["contact"]), iEmail=idx(["email"]),
+        iPhone=idx(["phone","tel","mobile"]), iServ=idx(["service"]), iStage=idx(["stage"]), iAmt=idx(["amount"]),
+        iDesc=idx(["description","notes"]), iBy=idx(["created by","by"]);
   let added = 0;
   for (let r = hi + 1; r < rows.length; r++) {
-    const row = rows[r];
-    const get = i => (i >= 0 && row[i] != null ? row[i].trim() : "");
-    const deal = get(iDeal);
-    if (!deal) continue;
+    const row = rows[r]; const get = i => (i >= 0 && row[i] != null ? row[i].trim() : "");
+    const deal = get(iDeal); if (!deal) continue;
     const amt = parseFloat(get(iAmt).replace(/[^0-9.\-]/g, "")) || 0;
-    deals.unshift({ id: uid(), createdAt: Date.now(), deal, company: get(iCo), contact: get(iContact),
-      service: get(iServ), stage: matchStage(get(iStage)), amount: amt, by: get(iBy), desc: get(iDesc) });
+    deals.unshift({ id: uid(), createdAt: Date.now(), deal, company:get(iCo), contact:get(iContact), email:get(iEmail),
+      phone:get(iPhone), service:get(iServ), stage:matchStage(get(iStage)), amount:amt, by:get(iBy), desc:get(iDesc) });
     added++;
   }
-  save(); render();
-  alert(added + " deal(s) imported. 🐝");
+  save(); render(); alert(added + " deal(s) imported. 🐝");
 }
 function matchStage(s) {
   if (!s) return "New Lead";
-  const found = STAGES.find(st => st.key.toLowerCase() === s.toLowerCase());
-  if (found) return found.key;
+  const found = STAGES.find(st => st.key.toLowerCase() === s.toLowerCase()); if (found) return found.key;
   const l = s.toLowerCase();
   if (l.includes("won")) return "Closed Won";
   if (l.includes("lost")) return "Closed Lost";
@@ -505,15 +549,12 @@ document.getElementById("exportBtn").onclick = exportCSV;
 document.getElementById("importBtn").onclick = () => document.getElementById("importFile").click();
 document.getElementById("importFile").addEventListener("change", e => {
   const f = e.target.files[0]; if (!f) return;
-  const reader = new FileReader();
-  reader.onload = () => importCSV(reader.result);
-  reader.readAsText(f);
-  e.target.value = "";
+  const reader = new FileReader(); reader.onload = () => importCSV(reader.result); reader.readAsText(f); e.target.value = "";
 });
-document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
-  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-  t.classList.add("active"); view = t.dataset.view; render();
-});
+document.getElementById("resetBtn").onclick = () => {
+  if (!confirm("Reset all data back to your July 2026 sheet? This clears any changes in this browser.")) return;
+  deals = seed(); render();
+};
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
 render();
