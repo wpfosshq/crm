@@ -6,67 +6,33 @@
 <title>Buzz CRM 🐝</title>
 <style>
   :root {
-    --bg: #0f1115;
-    --panel: #171a21;
-    --panel-2: #1e222b;
-    --line: #2a2f3a;
-    --text: #e6e9ef;
-    --muted: #9aa3b2;
-    --accent: #f5b301;
-    --accent-2: #ffcf40;
-    --green: #2ecc71;
-    --blue: #3aa0ff;
-    --orange: #ff9f43;
-    --red: #ff5c6c;
-    --purple: #b085f5;
+    --bg: #0f1115; --panel: #171a21; --panel-2: #1e222b; --line: #2a2f3a;
+    --text: #e6e9ef; --muted: #9aa3b2; --accent: #f5b301; --accent-2: #ffcf40;
+    --green: #2ecc71; --blue: #3aa0ff; --orange: #ff9f43; --red: #ff5c6c; --purple: #b085f5;
     --radius: 12px;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; }
-  body {
-    background: var(--bg); color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px; line-height: 1.45;
-    display: flex; min-height: 100vh;
-  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.45; display: flex; min-height: 100vh; }
   input, select, textarea, button { font-family: inherit; font-size: 14px; }
 
-  /* Sidebar */
-  .sidebar {
-    width: 220px; flex-shrink: 0; background: #12151b; border-right: 1px solid var(--line);
-    display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh;
-  }
+  .sidebar { width: 220px; flex-shrink: 0; background: #12151b; border-right: 1px solid var(--line); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; }
   .brand { padding: 20px 18px; font-size: 20px; font-weight: 800; border-bottom: 1px solid var(--line); }
   .brand span { color: var(--accent); }
   .nav { padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-  .nav-item {
-    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
-    cursor: pointer; color: var(--muted); font-weight: 600;
-  }
-  .nav-item:hover { background: var(--panel-2); color: var(--text); }
-  .nav-item.active { background: var(--panel-2); color: var(--text); }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; cursor: pointer; color: var(--muted); font-weight: 600; }
+  .nav-item:hover, .nav-item.active { background: var(--panel-2); color: var(--text); }
   .nav-item .ico { width: 18px; text-align: center; }
   .nav-item .n { margin-left: auto; font-size: 11px; background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 0 8px; color: var(--muted); }
   .nav-foot { padding: 12px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 
-  /* Main */
   .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-  .topbar {
-    display: flex; align-items: center; gap: 12px; padding: 16px 24px;
-    border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(15,17,21,.92);
-    backdrop-filter: blur(6px); z-index: 20; flex-wrap: wrap;
-  }
+  .topbar { display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(15,17,21,.92); backdrop-filter: blur(6px); z-index: 20; flex-wrap: wrap; }
   .topbar h1 { font-size: 20px; margin: 0; }
   .spacer { flex: 1; }
-  .search {
-    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
-    padding: 9px 12px; border-radius: 10px; min-width: 220px; outline: none;
-  }
+  .search { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); padding: 9px 12px; border-radius: 10px; min-width: 220px; outline: none; }
   .search:focus { border-color: var(--accent); }
-  .btn {
-    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
-    padding: 9px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: .15s; white-space: nowrap;
-  }
+  .btn { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); padding: 9px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: .15s; white-space: nowrap; }
   .btn:hover { border-color: var(--accent); }
   .btn.primary { background: var(--accent); color: #1a1300; border-color: var(--accent); }
   .btn.primary:hover { background: var(--accent-2); }
@@ -75,7 +41,6 @@
   .btn.danger:hover { border-color: var(--red); color: var(--red); }
   .content { padding: 22px 24px 60px; }
 
-  /* KPI cards */
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
   .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; border-left: 4px solid var(--line); }
   .kpi .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
@@ -87,8 +52,6 @@
   .kpi.purple { border-left-color: var(--purple); } .kpi.purple .value { color: var(--purple); }
 
   .section-title { font-size: 15px; font-weight: 700; margin: 24px 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
-
-  /* Stage breakdown bars */
   .breakdown { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
   .brow { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
   .brow:last-child { margin-bottom: 0; }
@@ -96,9 +59,8 @@
   .brow .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .brow .bar { flex: 1; height: 10px; background: var(--panel-2); border-radius: 20px; overflow: hidden; }
   .brow .bar > span { display: block; height: 100%; border-radius: 20px; }
-  .brow .amt { width: 150px; text-align: right; color: var(--muted); font-size: 13px; }
+  .brow .amt { width: 160px; text-align: right; color: var(--muted); font-size: 13px; }
 
-  /* Board */
   .board { display: flex; gap: 14px; overflow-x: auto; align-items: flex-start; padding-bottom: 10px; }
   .col { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); min-width: 270px; width: 270px; flex-shrink: 0; display: flex; flex-direction: column; border-top: 3px solid var(--line); }
   .col-head { padding: 12px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
@@ -117,11 +79,10 @@
   .card .amt { font-weight: 800; color: var(--accent); }
   .badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); }
 
-  /* Table */
-  .table-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .table-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; cursor: pointer; user-select: none; background: #14171e; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; cursor: pointer; user-select: none; background: #14171e; white-space: nowrap; }
   tbody tr { cursor: pointer; }
   tbody tr:hover { background: var(--panel-2); }
   tbody tr:last-child td { border-bottom: none; }
@@ -134,10 +95,9 @@
   .empty { color: var(--muted); text-align: center; padding: 50px 20px; }
   .muted { color: var(--muted); }
 
-  /* Modal */
   .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
   .overlay.open { display: flex; }
-  .modal { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; }
+  .modal { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 580px; max-height: 92vh; overflow-y: auto; }
   .modal-head { padding: 18px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; }
   .modal-head h2 { margin: 0; font-size: 18px; }
   .modal-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -175,7 +135,7 @@
       </select>
       <button class="btn sm" id="importBtn">Import CSV</button>
       <button class="btn sm" id="exportBtn">Export CSV</button>
-      <button class="btn sm danger ghost" id="resetBtn">Reset to sheet</button>
+      <button class="btn sm danger ghost" id="resetBtn">Reset to sheets</button>
       <input type="file" id="importFile" accept=".csv" class="hidden" />
     </div>
   </aside>
@@ -184,7 +144,8 @@
     <div class="topbar">
       <h1 id="viewTitle">Dashboard</h1>
       <div class="spacer"></div>
-      <input id="search" class="search" placeholder="Search deals, companies, contacts…" />
+      <input id="search" class="search" placeholder="Search everything…" />
+      <button class="btn" id="addClientBtn">+ Client</button>
       <button class="btn primary" id="addBtn">+ Add Lead</button>
     </div>
     <div class="content" id="content"></div>
@@ -193,28 +154,25 @@
   <!-- Modal -->
   <div class="overlay" id="overlay">
     <div class="modal">
-      <div class="modal-head">
-        <h2 id="modalTitle">Add Lead</h2>
-        <button class="close-x" id="closeBtn">&times;</button>
-      </div>
+      <div class="modal-head"><h2 id="modalTitle">Add Lead</h2><button class="close-x" id="closeBtn">&times;</button></div>
       <div class="modal-body">
-        <div class="field full"><label>Deal name *</label><input id="f_deal" placeholder="e.g. Acme – Google Workspace" /></div>
+        <div class="field"><label>Record type</label><select id="f_kind"><option value="lead">Lead (pipeline)</option><option value="client">Client (existing)</option></select></div>
+        <div class="field" id="wrap_stage"><label>Stage</label><select id="f_stage"></select></div>
+        <div class="field hidden" id="wrap_status"><label>Client status</label><select id="f_status"><option value="Active">Active</option><option value="Past">Past</option></select></div>
+        <div class="field full"><label id="lbl_deal">Deal name *</label><input id="f_deal" placeholder="e.g. Acme – Google Workspace" /></div>
         <div class="field"><label>Company</label><input id="f_company" placeholder="Company name" /></div>
-        <div class="field"><label>Contact name</label><input id="f_contact" placeholder="Who you talk to" /></div>
+        <div class="field"><label>Contact person</label><input id="f_contact" placeholder="Who you talk to" /></div>
         <div class="field"><label>Email</label><input id="f_email" type="email" placeholder="name@company.com" /></div>
         <div class="field"><label>Phone</label><input id="f_phone" placeholder="+254 …" /></div>
-        <div class="field"><label>Service</label><input id="f_service" placeholder="e.g. Website Development" /></div>
-        <div class="field"><label>Amount</label><input id="f_amount" type="number" step="0.01" placeholder="0" /></div>
-        <div class="field"><label>Stage</label><select id="f_stage"></select></div>
-        <div class="field"><label>Created by</label><input id="f_by" placeholder="You / your team" /></div>
-        <div class="field full"><label>Description / notes</label><textarea id="f_desc" placeholder="Context, next steps, what they want…"></textarea></div>
+        <div class="field"><label>Service</label><input id="f_service" placeholder="e.g. Web design, social media" /></div>
+        <div class="field"><label id="lbl_amount">Amount</label><input id="f_amount" type="number" step="0.01" placeholder="0" /></div>
+        <div class="field"><label>Industry / what they do</label><input id="f_industry" placeholder="e.g. Insurance" /></div>
+        <div class="field"><label>Website</label><input id="f_website" placeholder="https://…" /></div>
+        <div class="field full"><label>Notes</label><textarea id="f_desc" placeholder="Context, next steps, billing details…"></textarea></div>
       </div>
       <div class="modal-foot">
         <button class="btn danger ghost" id="deleteBtn">Delete</button>
-        <div style="display:flex;gap:10px">
-          <button class="btn ghost" id="cancelBtn">Cancel</button>
-          <button class="btn primary" id="saveBtn">Save</button>
-        </div>
+        <div style="display:flex;gap:10px"><button class="btn ghost" id="cancelBtn">Cancel</button><button class="btn primary" id="saveBtn">Save</button></div>
       </div>
     </div>
   </div>
@@ -231,21 +189,46 @@ const STAGES = [
 ];
 const stageMeta = k => STAGES.find(s => s.key === k) || { key: k, color: "#9aa3b2", type: "open" };
 const stageColor = k => stageMeta(k).color;
-const isOpen = d => stageMeta(d.stage).type === "open";
-const isWon  = d => stageMeta(d.stage).type === "won";
-const isLost = d => stageMeta(d.stage).type === "lost";
 
-const KEY = "buzz_crm_deals_v2";      // bumped: new schema (email/phone) + Takaful=Lost
+const isClient = d => d.kind === "client";
+const isLead   = d => d.kind !== "client";
+const isOpen = d => isLead(d) && stageMeta(d.stage).type === "open";
+const isWon  = d => isLead(d) && stageMeta(d.stage).type === "won";
+const isLost = d => isLead(d) && stageMeta(d.stage).type === "lost";
+
+// A record's status label/colour (stage for leads, Active/Past for clients)
+function statusLabel(d) { return isClient(d) ? (d.status || "Active") : d.stage; }
+function statusColor(d) {
+  if (isClient(d)) return (d.status === "Past") ? "#9aa3b2" : "#2ecc71";
+  return stageColor(d.stage);
+}
+
+const KEY = "buzz_crm_deals_v3";   // bumped: adds client records + industry/website fields
 const CUR_KEY = "buzz_crm_currency";
 
-const SEED = [
-  { deal:"Jael Musimbi – Google Workspace", company:"Bloom Balance", service:"Google Workspace", contact:"Jael Musimbi", email:"", phone:"", stage:"Closed Won", amount:1267, by:"WPfoss", desc:"Jael wanted Google Workspace starter flexible price. She has already paid and setup is in session." },
-  { deal:"Kencharge Google Workspace", company:"Kencharge", service:"Google Workspace", contact:"Shelmith Ireri", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:25334, by:"WPfoss", desc:"They wanted Google Workspace commit plan for 2 accounts. A proposal and invoice was sent." },
-  { deal:"Skyward Airlines Cloudflare Management", company:"Skyward Airlines", service:"Website Management", contact:"Lewis (Skyward Airlines)", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:20000, by:"WPfoss", desc:"Skyward Airlines wants us to manage and migrate their website to Cloudflare. They will pay 20k first month and then 15k every month." },
-  { deal:"Feisal Google Workspace", company:"Profyl", service:"Google Workspace", contact:"Feisal Haji", email:"", phone:"", stage:"Closed Won", amount:3798, by:"WPfoss", desc:"Purchased Google Workspace from us." },
-  { deal:"Tinia Website Development", company:"Tinia", service:"Website Development", contact:"Silas", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:60000, by:"WPfoss", desc:"Website development service." },
-  { deal:"Rancesecurity Web Design", company:"Rancesecurity", service:"Web Design", contact:"Collins", email:"", phone:"", stage:"Proposal/Price Quote Sent", amount:40000, by:"", desc:"Website development service." },
-  { deal:"Takaful Insurance – Google Workspace", company:"Takaful Insurance of Africa (TIA)", service:"Google Workspace", contact:"Procurement", email:"", phone:"", stage:"Closed Lost", amount:1929646, by:"WPfoss", desc:"Google Workspace. Deal did not close." },
+const LEADS_SEED = [
+  { kind:"lead", deal:"Jael Musimbi – Google Workspace", company:"Bloom Balance", service:"Google Workspace", contact:"Jael Musimbi", email:"", phone:"", industry:"", website:"", stage:"Closed Won", amount:1267, by:"WPfoss", desc:"Jael wanted Google Workspace starter flexible price. She has already paid and setup is in session." },
+  { kind:"lead", deal:"Kencharge Google Workspace", company:"Kencharge", service:"Google Workspace", contact:"Shelmith Ireri", email:"", phone:"", industry:"", website:"", stage:"Proposal/Price Quote Sent", amount:25334, by:"WPfoss", desc:"They wanted Google Workspace commit plan for 2 accounts. A proposal and invoice was sent." },
+  { kind:"lead", deal:"Skyward Airlines Cloudflare Management", company:"Skyward Airlines", service:"Website Management", contact:"Lewis (Skyward Airlines)", email:"", phone:"", industry:"Airline", website:"", stage:"Proposal/Price Quote Sent", amount:20000, by:"WPfoss", desc:"Wants us to manage and migrate their website to Cloudflare. 20k first month then 15k every month." },
+  { kind:"lead", deal:"Feisal Google Workspace", company:"Profyl", service:"Google Workspace", contact:"Feisal Haji", email:"", phone:"", industry:"", website:"", stage:"Closed Won", amount:3798, by:"WPfoss", desc:"Purchased Google Workspace from us." },
+  { kind:"lead", deal:"Tinia Website Development", company:"Tinia", service:"Website Development", contact:"Silas", email:"", phone:"", industry:"", website:"", stage:"Proposal/Price Quote Sent", amount:60000, by:"WPfoss", desc:"Website development service." },
+  { kind:"lead", deal:"Rancesecurity Web Design", company:"Rancesecurity", service:"Web Design", contact:"Collins", email:"", phone:"", industry:"", website:"", stage:"Proposal/Price Quote Sent", amount:40000, by:"", desc:"Website development service." },
+  { kind:"lead", deal:"Takaful Insurance – Google Workspace", company:"Takaful Insurance of Africa (TIA)", service:"Google Workspace", contact:"Procurement", email:"", phone:"", industry:"Insurance", website:"", stage:"Closed Lost", amount:1929646, by:"WPfoss", desc:"Google Workspace. Deal did not close." },
+];
+
+const CLIENTS_SEED = [
+  { kind:"client", company:"Belmill Feeds (Belfast Millers Ltd)", contact:"Rushab", industry:"Livestock & animal feed manufacturer", service:"Web design, social media management, monthly FB reporting, ads", status:"Active", email:"rushab@belmill.com", phone:"254740944582", website:"https://belmill.com", amount:140000, desc:"Website + ongoing social media retainer. Billing: 140,000 + 31,000/month." },
+  { kind:"client", company:"Ubinti", contact:"Diana", industry:"Social enterprise — sanitary products for Kenyan girls", service:"Web design, subscription shop, sponsorship system", status:"Active", email:"dianaomanga@gmail.com", phone:"254724859993", website:"https://ubinti.com", amount:30000, desc:"E-commerce website. Mission-driven; subscription + sponsorship model." },
+  { kind:"client", company:"Nyarari Solutions", contact:"", industry:"Modern brand / business services", service:"Web design", status:"Active", email:"info@nyararisolutions.co.ke", phone:"", website:"https://nyararisolutions.co.ke", amount:0, desc:"Website. Bold, eye-catching design." },
+  { kind:"client", company:"SasaStudio", contact:"Saint P", industry:"Creative studio", service:"Web design", status:"Active", email:"", phone:"254726551761", website:"https://sasastudios.africa", amount:0, desc:"Website. Responsive, dynamic content." },
+  { kind:"client", company:"Bramsan", contact:"Bradley", industry:"Construction company", service:"Web design", status:"Past", email:"bramsankenyalimited@gmail.com", phone:"254716136322", website:"https://bramsan.co.ke", amount:20000, desc:"Construction website." },
+  { kind:"client", company:"Jarine Investments", contact:"", industry:"Investment / company services", service:"Web design", status:"Past", email:"", phone:"", website:"https://jarine.co.ke", amount:20000, desc:"Website revamp." },
+  { kind:"client", company:"Borice", contact:"", industry:"Accounting firm", service:"Web design", status:"Active", email:"books@borice.co.ke", phone:"723332689", website:"https://borice.co.ke", amount:0, desc:"Comprehensive accounting services site." },
+  { kind:"client", company:"Advanced Mobility", contact:"", industry:"Mobility / automotive", service:"Hacked site restoration & security", status:"Past", email:"", phone:"720848008", website:"https://advancedmobility.co.ke", amount:10000, desc:"Website recovery — recovered & secured compromised site." },
+  { kind:"client", company:"Pearlbrand", contact:"", industry:"Insurance services", service:"Website maintenance & support", status:"Active", email:"info@pearlbrand.co.ke", phone:"711948117", website:"https://pearlbrand.co.ke", amount:0, desc:"Maintenance retainer. Ongoing maintenance & security." },
+  { kind:"client", company:"Divine Encounters", contact:"Brendah Jons", industry:"Spiritual / faith community", service:"Web design, event management, online shop", status:"Past", email:"", phone:"254702823679", website:"http://divineencounters.co.ke", amount:0, desc:"Website. Events + shop integration." },
+  { kind:"client", company:"Lafrinity", contact:"Jessica Zapata", industry:"Modern brand", service:"Web design", status:"Past", email:"jessicazapata2302@gmail.com", phone:"1(204)698-5390", website:"https://lafrinity.com", amount:0, desc:"Website. Bold, modern brand design." },
+  { kind:"client", company:"Dennis Lube", contact:"Dennis Lube", industry:"Developer", service:"WooCommerce M-Pesa plugin", status:"Past", email:"", phone:"254720938132", website:"", amount:1000, desc:"Plugin / product customer. Bought WooCommerce M-Pesa plugin; dev-friendly." },
 ];
 
 /* ---------- State ---------- */
@@ -260,120 +243,112 @@ const NAV = [
   { id: "dashboard", label: "Dashboard", ico: "📊" },
   { id: "pipeline",  label: "Pipeline",  ico: "🗂️" },
   { id: "leads",     label: "Leads",     ico: "🎯" },
-  { id: "clients",   label: "Clients",   ico: "✅" },
+  { id: "clients",   label: "Clients",   ico: "🤝" },
   { id: "lost",      label: "Lost",      ico: "❌" },
   { id: "contacts",  label: "Contacts",  ico: "👥" },
 ];
 
 /* ---------- Storage ---------- */
-function load() {
-  try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw); } catch (e) {}
-  return seed();
-}
+function load() { try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw); } catch (e) {} return seed(); }
 function seed() {
-  const s = SEED.map((d, i) => ({ id: uid(), createdAt: Date.now() + i, ...d }));
-  localStorage.setItem(KEY, JSON.stringify(s));
-  return s;
+  const all = [...LEADS_SEED, ...CLIENTS_SEED].map((d, i) => ({ id: uid(), createdAt: Date.now() + i, ...d }));
+  localStorage.setItem(KEY, JSON.stringify(all));
+  return all;
 }
 function save() { localStorage.setItem(KEY, JSON.stringify(deals)); }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 function money(n) { const v = Number(n) || 0; return (currency ? currency + " " : "") + v.toLocaleString(undefined, { maximumFractionDigits: 2 }); }
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c])); }
 function sum(list) { return list.reduce((s, d) => s + (Number(d.amount) || 0), 0); }
+function nameOf(d) { return d.deal || d.company || "Untitled"; }
+function webHref(w) { if (!w) return ""; return /^https?:\/\//i.test(w) ? w : "https://" + w; }
+function webLink(w) { return w ? `<a class="link" href="${esc(webHref(w))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(w.replace(/^https?:\/\//,""))}</a>` : '<span class="muted">—</span>'; }
 
 function filtered(base) {
   const q = search.trim().toLowerCase();
   let list = (base || deals).slice();
-  if (q) list = list.filter(d => [d.deal, d.company, d.contact, d.email, d.phone, d.service, d.desc, d.stage].some(f => (f || "").toLowerCase().includes(q)));
+  if (q) list = list.filter(d => [d.deal, d.company, d.contact, d.email, d.phone, d.service, d.industry, d.website, d.desc, statusLabel(d)].some(f => (f || "").toLowerCase().includes(q)));
   return list;
 }
-function stagePill(stage) {
-  const c = stageColor(stage);
-  return `<span class="pill" style="background:${c}22;color:${c}">${esc(stage)}</span>`;
-}
+function pill(label, color) { return `<span class="pill" style="background:${color}22;color:${color}">${esc(label)}</span>`; }
 
 /* ---------- Nav ---------- */
 function renderNav() {
   document.getElementById("nav").innerHTML = NAV.map(n => {
     let count = "";
     if (n.id === "leads") count = deals.filter(isOpen).length;
-    else if (n.id === "clients") count = deals.filter(isWon).length;
+    else if (n.id === "clients") count = deals.filter(isClient).length + deals.filter(isWon).length;
     else if (n.id === "lost") count = deals.filter(isLost).length;
     else if (n.id === "contacts") count = deals.length;
-    else if (n.id === "pipeline") count = deals.length;
-    return `<div class="nav-item ${route===n.id?"active":""}" data-id="${n.id}">
-      <span class="ico">${n.ico}</span><span>${n.label}</span>${count!==""?`<span class="n">${count}</span>`:""}</div>`;
+    else if (n.id === "pipeline") count = deals.filter(isLead).length;
+    return `<div class="nav-item ${route===n.id?"active":""}" data-id="${n.id}"><span class="ico">${n.ico}</span><span>${n.label}</span>${count!==""?`<span class="n">${count}</span>`:""}</div>`;
   }).join("");
-  document.querySelectorAll(".nav-item").forEach(el => el.onclick = () => { route = el.dataset.id; render(); });
+  document.querySelectorAll(".nav-item").forEach(el => el.onclick = () => { route = el.dataset.id; sortKey = null; render(); });
 }
 
-/* ---------- Views ---------- */
+/* ---------- Dashboard ---------- */
 function viewDashboard() {
   const open = deals.filter(isOpen), won = deals.filter(isWon), lost = deals.filter(isLost);
+  const clients = deals.filter(isClient), activeClients = clients.filter(c => c.status !== "Past");
   const winRate = (won.length + lost.length) ? Math.round(won.length / (won.length + lost.length) * 100) : 0;
   const kpis = [
-    ["gold",  "Open pipeline", money(sum(open)), open.length + " deals"],
-    ["green", "Won revenue",   money(sum(won)),  won.length + " clients"],
+    ["gold",  "Open pipeline", money(sum(open)), open.length + " active leads"],
+    ["green", "Won revenue",   money(sum(won)),  won.length + " won deals"],
     ["red",   "Lost value",    money(sum(lost)), lost.length + " lost"],
-    ["blue",  "Win rate",      winRate + "%",    won.length + " won / " + lost.length + " lost"],
-    ["purple","Total contacts",String(deals.length), "in your book"],
+    ["blue",  "Clients",       String(clients.length), activeClients.length + " active"],
+    ["purple","Client revenue",money(sum(clients)), "total paid to date"],
+    ["gold",  "Win rate",      winRate + "%", won.length + " won / " + lost.length + " lost"],
   ];
-  const maxSum = Math.max(1, ...STAGES.map(s => sum(deals.filter(d => d.stage === s.key))));
+  const maxSum = Math.max(1, ...STAGES.map(s => sum(deals.filter(d => isLead(d) && d.stage === s.key))));
   const bars = STAGES.map(s => {
-    const items = deals.filter(d => d.stage === s.key);
-    const v = sum(items);
-    return `<div class="brow">
-      <div class="name"><span class="dot" style="background:${s.color}"></span>${esc(s.key)}</div>
+    const items = deals.filter(d => isLead(d) && d.stage === s.key); const v = sum(items);
+    return `<div class="brow"><div class="name"><span class="dot" style="background:${s.color}"></span>${esc(s.key)}</div>
       <div class="bar"><span style="width:${Math.max(2, v/maxSum*100)}%;background:${s.color}"></span></div>
       <div class="amt">${items.length} · ${money(v)}</div></div>`;
   }).join("");
-  return `
-    <div class="kpis">${kpis.map(k => `<div class="kpi ${k[0]}"><div class="label">${k[1]}</div><div class="value">${k[2]}</div><div class="muted" style="font-size:12px;margin-top:4px">${k[3]}</div></div>`).join("")}</div>
-    <div class="section-title">Pipeline by stage</div>
-    <div class="breakdown">${bars}</div>`;
+  return `<div class="kpis">${kpis.map(k => `<div class="kpi ${k[0]}"><div class="label">${k[1]}</div><div class="value">${k[2]}</div><div class="muted" style="font-size:12px;margin-top:4px">${k[3]}</div></div>`).join("")}</div>
+    <div class="section-title">Sales pipeline by stage</div><div class="breakdown">${bars}</div>`;
 }
 
+/* ---------- Tables ---------- */
 function dealTable(list, cols) {
-  if (!list.length) return `<div class="table-wrap"><div class="empty">Nothing here yet. Hit “+ Add Lead” to add one. 🐝</div></div>`;
+  if (!list.length) return `<div class="table-wrap"><div class="empty">Nothing here yet. Use “+ Add Lead” or “+ Client”. 🐝</div></div>`;
   if (sortKey) list = list.slice().sort((a, b) => {
-    let x = a[sortKey], y = b[sortKey];
-    if (sortKey === "amount") { x = Number(x)||0; y = Number(y)||0; }
-    else { x = (x||"").toString().toLowerCase(); y = (y||"").toString().toLowerCase(); }
+    let x, y;
+    if (sortKey === "amount") { x = Number(a.amount)||0; y = Number(b.amount)||0; }
+    else if (sortKey === "status") { x = statusLabel(a).toLowerCase(); y = statusLabel(b).toLowerCase(); }
+    else { x = (a[sortKey]||"").toString().toLowerCase(); y = (b[sortKey]||"").toString().toLowerCase(); }
     return x < y ? -sortDir : x > y ? sortDir : 0;
   });
   const head = cols.map(c => `<th data-k="${c.k}">${c.h}${sortKey===c.k?(sortDir>0?" ▲":" ▼"):""}</th>`).join("");
-  const rows = list.map(d => `<tr data-id="${d.id}" class="row-accent" style="border-left-color:${stageColor(d.stage)}">
-    ${cols.map(c => c.cell(d)).join("")}</tr>`).join("");
+  const rows = list.map(d => `<tr data-id="${d.id}" class="row-accent" style="border-left-color:${statusColor(d)}">${cols.map(c => c.cell(d)).join("")}</tr>`).join("");
   return `<div class="table-wrap"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 function wireTable() {
-  document.querySelectorAll("th[data-k]").forEach(th => th.onclick = () => {
-    const k = th.dataset.k; if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; } render();
-  });
+  document.querySelectorAll("th[data-k]").forEach(th => th.onclick = () => { const k = th.dataset.k; if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; } render(); });
   document.querySelectorAll("tr[data-id]").forEach(tr => tr.onclick = () => openModal(tr.dataset.id));
 }
-
-const contactCell = d => `<td>${d.contact?esc(d.contact):'<span class="muted">—</span>'}
-  ${(d.email||d.phone)?`<div class="sub">${d.email?esc(d.email):""}${d.email&&d.phone?" · ":""}${d.phone?esc(d.phone):""}</div>`:""}</td>`;
+const contactCell = d => `<td>${d.contact?esc(d.contact):'<span class="muted">—</span>'}${(d.email||d.phone)?`<div class="sub">${d.email?esc(d.email):""}${d.email&&d.phone?" · ":""}${d.phone?esc(d.phone):""}</div>`:""}</td>`;
 
 function viewLeads() {
   const list = filtered(deals.filter(isOpen));
-  return `<p class="muted" style="margin-top:0">Active leads you are working — everyone not yet won or lost.</p>` + dealTable(list, [
+  return `<p class="muted" style="margin-top:0">Active leads in your sales pipeline — everyone not yet won or lost.</p>` + dealTable(list, [
     { k:"deal", h:"Deal", cell: d => `<td><strong>${esc(d.deal)}</strong><div class="sub">${esc(d.company||"—")}</div></td>` },
     { k:"contact", h:"Contact", cell: contactCell },
     { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
-    { k:"stage", h:"Stage", cell: d => `<td>${stagePill(d.stage)}</td>` },
+    { k:"stage", h:"Stage", cell: d => `<td>${pill(d.stage, stageColor(d.stage))}</td>` },
     { k:"amount", h:"Amount", cell: d => `<td class="amt">${money(d.amount)}</td>` },
   ]);
 }
 function viewClients() {
-  const list = filtered(deals.filter(isWon));
-  return `<p class="muted" style="margin-top:0">Won deals — your paying clients. 🟢</p>` + dealTable(list, [
-    { k:"company", h:"Client", cell: d => `<td><strong>${esc(d.company||d.deal)}</strong><div class="sub">${esc(d.deal)}</div></td>` },
+  const list = filtered(deals.filter(d => isClient(d) || isWon(d)));
+  return `<p class="muted" style="margin-top:0">Your clients — the customer database plus won deals. <span style="color:var(--green)">Active</span> / <span class="muted">Past</span> / <span style="color:var(--green)">Won</span>.</p>` + dealTable(list, [
+    { k:"company", h:"Client", cell: d => `<td><strong>${esc(d.company||nameOf(d))}</strong>${d.industry?`<div class="sub">${esc(d.industry)}</div>`:(isWon(d)?`<div class="sub">${esc(d.deal)}</div>`:"")}</td>` },
     { k:"contact", h:"Contact", cell: contactCell },
-    { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
-    { k:"stage", h:"Status", cell: d => `<td>${stagePill(d.stage)}</td>` },
-    { k:"amount", h:"Value", cell: d => `<td class="amt" style="color:var(--green)">${money(d.amount)}</td>` },
+    { k:"service", h:"Services", cell: d => `<td>${esc(d.service||"—")}</td>` },
+    { k:"website", h:"Website", cell: d => `<td>${isClient(d)?webLink(d.website):'<span class="muted">—</span>'}</td>` },
+    { k:"status", h:"Status", cell: d => `<td>${pill(statusLabel(d), statusColor(d))}</td>` },
+    { k:"amount", h:"Paid", cell: d => `<td class="amt" style="color:var(--green)">${money(d.amount)}</td>` },
   ]);
 }
 function viewLost() {
@@ -382,40 +357,35 @@ function viewLost() {
     { k:"deal", h:"Deal", cell: d => `<td><strong>${esc(d.deal)}</strong><div class="sub">${esc(d.company||"—")}</div></td>` },
     { k:"contact", h:"Contact", cell: contactCell },
     { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
-    { k:"stage", h:"Status", cell: d => `<td>${stagePill(d.stage)}</td>` },
+    { k:"stage", h:"Status", cell: d => `<td>${pill(d.stage, stageColor(d.stage))}</td>` },
     { k:"amount", h:"Lost value", cell: d => `<td class="amt" style="color:var(--red)">${money(d.amount)}</td>` },
   ]);
 }
 function viewContacts() {
   const list = filtered(deals);
-  return `<p class="muted" style="margin-top:0">Everyone in your book, with their contact info and where their deal stands.</p>` + dealTable(list, [
+  return `<p class="muted" style="margin-top:0">Everyone in your book — leads and clients — with contact info.</p>` + dealTable(list, [
     { k:"contact", h:"Contact", cell: d => `<td><strong>${d.contact?esc(d.contact):'<span class="muted">—</span>'}</strong><div class="sub">${esc(d.company||"")}</div></td>` },
     { k:"email", h:"Email", cell: d => `<td>${d.email?`<a class="link" href="mailto:${esc(d.email)}" onclick="event.stopPropagation()">${esc(d.email)}</a>`:'<span class="muted">—</span>'}</td>` },
     { k:"phone", h:"Phone", cell: d => `<td>${d.phone?`<a class="link" href="tel:${esc(d.phone)}" onclick="event.stopPropagation()">${esc(d.phone)}</a>`:'<span class="muted">—</span>'}</td>` },
-    { k:"deal", h:"Deal", cell: d => `<td>${esc(d.deal)}</td>` },
-    { k:"stage", h:"Stage", cell: d => `<td>${stagePill(d.stage)}</td>` },
+    { k:"kind", h:"Type", cell: d => `<td>${isClient(d)?pill("Client","#3aa0ff"):pill("Lead","#f5b301")}</td>` },
+    { k:"status", h:"Status", cell: d => `<td>${pill(statusLabel(d), statusColor(d))}</td>` },
   ]);
 }
 
+/* ---------- Pipeline (leads only) ---------- */
 function viewPipeline() {
-  const list = filtered(deals);
-  return `<div class="board" id="board">${STAGES.map(st => {
-    const items = list.filter(d => d.stage === st.key);
-    const s = sum(items);
-    return `<div class="col" style="border-top-color:${st.color}">
-      <div class="col-head"><span class="dot" style="background:${st.color}"></span>
-        <span class="col-title">${esc(st.key)}</span><span class="col-count">${items.length}</span>
-        <span class="col-sum">${s?money(s):""}</span></div>
-      <div class="col-body" data-stage="${esc(st.key)}">${items.map(d => cardHTML(d)).join("")}</div>
-    </div>`;
+  const list = filtered(deals.filter(isLead));
+  return `<p class="muted" style="margin-top:0">Your sales pipeline. Drag a card to move a lead between stages.</p><div class="board" id="board">${STAGES.map(st => {
+    const items = list.filter(d => d.stage === st.key); const s = sum(items);
+    return `<div class="col" style="border-top-color:${st.color}"><div class="col-head"><span class="dot" style="background:${st.color}"></span>
+      <span class="col-title">${esc(st.key)}</span><span class="col-count">${items.length}</span><span class="col-sum">${s?money(s):""}</span></div>
+      <div class="col-body" data-stage="${esc(st.key)}">${items.map(cardHTML).join("")}</div></div>`;
   }).join("")}</div>`;
 }
 function cardHTML(d) {
   return `<div class="card" draggable="true" data-id="${d.id}" style="border-left-color:${stageColor(d.stage)}">
-    <div class="deal">${esc(d.deal)}</div>
-    <div class="company">${esc(d.company||"—")}${d.contact?" · "+esc(d.contact):""}</div>
-    <div class="meta"><span class="amt">${money(d.amount)}</span>${d.service?`<span class="badge">${esc(d.service)}</span>`:""}</div>
-  </div>`;
+    <div class="deal">${esc(d.deal)}</div><div class="company">${esc(d.company||"—")}${d.contact?" · "+esc(d.contact):""}</div>
+    <div class="meta"><span class="amt">${money(d.amount)}</span>${d.service?`<span class="badge">${esc(d.service)}</span>`:""}</div></div>`;
 }
 function wirePipeline() {
   document.querySelectorAll(".card").forEach(el => {
@@ -426,12 +396,9 @@ function wirePipeline() {
   document.querySelectorAll(".col-body").forEach(body => {
     body.addEventListener("dragover", e => { e.preventDefault(); body.classList.add("drag-over"); });
     body.addEventListener("dragleave", () => body.classList.remove("drag-over"));
-    body.addEventListener("drop", e => {
-      e.preventDefault(); body.classList.remove("drag-over");
-      const id = e.dataTransfer.getData("text/plain");
-      const d = deals.find(x => x.id === id);
-      if (d && d.stage !== body.dataset.stage) { d.stage = body.dataset.stage; save(); render(); }
-    });
+    body.addEventListener("drop", e => { e.preventDefault(); body.classList.remove("drag-over");
+      const id = e.dataTransfer.getData("text/plain"); const d = deals.find(x => x.id === id);
+      if (d && d.stage !== body.dataset.stage) { d.stage = body.dataset.stage; save(); render(); } });
   });
 }
 
@@ -451,43 +418,65 @@ function render() {
 
 /* ---------- Modal ---------- */
 function fillStageSelect() { document.getElementById("f_stage").innerHTML = STAGES.map(s => `<option value="${esc(s.key)}">${esc(s.key)}</option>`).join(""); }
-function openModal(id) {
+function applyKindUI() {
+  const kind = document.getElementById("f_kind").value;
+  document.getElementById("wrap_stage").classList.toggle("hidden", kind === "client");
+  document.getElementById("wrap_status").classList.toggle("hidden", kind !== "client");
+  document.getElementById("lbl_deal").textContent = kind === "client" ? "Client / company name *" : "Deal name *";
+  document.getElementById("lbl_amount").textContent = kind === "client" ? "Amount paid" : "Amount";
+}
+function openModal(id, presetKind) {
   editingId = id || null;
   const d = id ? deals.find(x => x.id === id) : {};
-  document.getElementById("modalTitle").textContent = id ? "Edit Deal" : "Add Lead";
+  const kind = d.kind || presetKind || "lead";
+  document.getElementById("modalTitle").textContent = id ? "Edit record" : (kind === "client" ? "Add Client" : "Add Lead");
+  document.getElementById("f_kind").value = kind;
   const set = (k, v) => document.getElementById(k).value = v || "";
-  set("f_deal", d.deal); set("f_company", d.company); set("f_contact", d.contact);
+  // for clients the "deal name" input maps to company; keep a single source
+  set("f_deal", d.deal || d.company); set("f_company", d.company); set("f_contact", d.contact);
   set("f_email", d.email); set("f_phone", d.phone); set("f_service", d.service);
+  set("f_industry", d.industry); set("f_website", d.website);
   document.getElementById("f_amount").value = d.amount != null ? d.amount : "";
   document.getElementById("f_stage").value = d.stage || "New Lead";
-  set("f_by", d.by); set("f_desc", d.desc);
+  document.getElementById("f_status").value = d.status || "Active";
+  set("f_desc", d.desc);
+  applyKindUI();
   document.getElementById("deleteBtn").style.visibility = id ? "visible" : "hidden";
   document.getElementById("overlay").classList.add("open");
   document.getElementById("f_deal").focus();
 }
 function closeModal() { document.getElementById("overlay").classList.remove("open"); editingId = null; }
 function saveModal() {
-  const deal = document.getElementById("f_deal").value.trim();
-  if (!deal) { document.getElementById("f_deal").focus(); return; }
+  const kind = document.getElementById("f_kind").value;
   const g = k => document.getElementById(k).value.trim();
-  const rec = { deal, company: g("f_company"), contact: g("f_contact"), email: g("f_email"), phone: g("f_phone"),
-    service: g("f_service"), amount: parseFloat(document.getElementById("f_amount").value) || 0,
-    stage: document.getElementById("f_stage").value, by: g("f_by"), desc: g("f_desc") };
+  const primary = g("f_deal");
+  if (!primary) { document.getElementById("f_deal").focus(); return; }
+  const rec = {
+    kind,
+    company: g("f_company") || (kind === "client" ? primary : ""),
+    deal: kind === "client" ? (g("f_company") || primary) : primary,
+    contact: g("f_contact"), email: g("f_email"), phone: g("f_phone"), service: g("f_service"),
+    industry: g("f_industry"), website: g("f_website"),
+    amount: parseFloat(document.getElementById("f_amount").value) || 0,
+    stage: document.getElementById("f_stage").value,
+    status: document.getElementById("f_status").value,
+    desc: g("f_desc"),
+  };
+  if (kind === "client") { rec.deal = rec.company; }
   if (editingId) Object.assign(deals.find(x => x.id === editingId), rec);
   else deals.unshift({ id: uid(), createdAt: Date.now(), ...rec });
   save(); closeModal(); render();
 }
 function deleteDeal() {
   if (!editingId) return;
-  if (!confirm("Delete this deal?")) return;
-  deals = deals.filter(x => x.id !== editingId);
-  save(); closeModal(); render();
+  if (!confirm("Delete this record?")) return;
+  deals = deals.filter(x => x.id !== editingId); save(); closeModal(); render();
 }
 
 /* ---------- CSV ---------- */
 function exportCSV() {
-  const cols = ["deal","company","contact","email","phone","service","stage","amount","by","desc"];
-  const head = ["Deal Name","Company","Contact","Email","Phone","Service","Stage","Amount","Created By","Description"];
+  const cols = ["kind","deal","company","contact","email","phone","service","industry","website","stage","status","amount","desc"];
+  const head = ["Type","Deal Name","Company","Contact","Email","Phone","Service","Industry","Website","Stage","Client Status","Amount","Notes"];
   const rows = deals.map(d => cols.map(c => csvCell(d[c])).join(","));
   const blob = new Blob([head.join(",") + "\n" + rows.join("\n")], { type: "text/csv" });
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "buzz-crm-export.csv"; a.click();
@@ -502,25 +491,36 @@ function parseCSV(text) {
   if (cell.length || row.length) { row.push(cell); rows.push(row); }
   return rows;
 }
+function parseAmt(s) { const m = String(s||"").replace(/,/g,"").match(/-?\d+(\.\d+)?/); return m ? parseFloat(m[0]) : 0; }
 function importCSV(text) {
   const rows = parseCSV(text).filter(r => r.some(c => c.trim() !== ""));
   if (!rows.length) return;
-  let hi = rows.findIndex(r => r.some(c => /deal name|deal/i.test(c))); if (hi < 0) hi = 0;
+  // header = first row that mentions a name-ish column
+  let hi = rows.findIndex(r => r.some(c => /deal name|client|company|contact person/i.test(c))); if (hi < 0) hi = 0;
   const head = rows[hi].map(h => h.trim().toLowerCase());
   const idx = names => head.findIndex(h => names.some(n => h.includes(n)));
-  const iDeal=idx(["deal name","deal"]), iCo=idx(["company"]), iContact=idx(["contact"]), iEmail=idx(["email"]),
-        iPhone=idx(["phone","tel","mobile"]), iServ=idx(["service"]), iStage=idx(["stage"]), iAmt=idx(["amount"]),
-        iDesc=idx(["description","notes"]), iBy=idx(["created by","by"]);
+  const iType=idx(["type"]), iDeal=idx(["deal name","deal"]), iName=idx(["client","company"]), iContact=idx(["contact"]),
+        iEmail=idx(["email"]), iPhone=idx(["phone","tel","mobile"]), iServ=idx(["service"]), iInd=idx(["industry","what they do"]),
+        iWeb=idx(["website","portfolio","link"]), iStage=idx(["stage"]), iStatus=idx(["status"]), iAmt=idx(["amount"]),
+        iDesc=idx(["notes","description"]);
   let added = 0;
   for (let r = hi + 1; r < rows.length; r++) {
     const row = rows[r]; const get = i => (i >= 0 && row[i] != null ? row[i].trim() : "");
-    const deal = get(iDeal); if (!deal) continue;
-    const amt = parseFloat(get(iAmt).replace(/[^0-9.\-]/g, "")) || 0;
-    deals.unshift({ id: uid(), createdAt: Date.now(), deal, company:get(iCo), contact:get(iContact), email:get(iEmail),
-      phone:get(iPhone), service:get(iServ), stage:matchStage(get(iStage)), amount:amt, by:get(iBy), desc:get(iDesc) });
+    const name = get(iDeal) || get(iName); if (!name) continue;
+    const statusRaw = get(iStatus);
+    const looksClient = /active|past|client/i.test(statusRaw) || get(iInd) || get(iWeb) || (iType>=0 && /client/i.test(get(iType)));
+    if (looksClient && !(iType>=0 && /lead/i.test(get(iType)))) {
+      deals.unshift({ id: uid(), createdAt: Date.now(), kind:"client", company: get(iName)||name, deal: get(iName)||name,
+        contact: get(iContact), email: get(iEmail), phone: get(iPhone), service: get(iServ), industry: get(iInd),
+        website: get(iWeb), amount: parseAmt(get(iAmt)), status: /past/i.test(statusRaw)?"Past":"Active", stage:"Closed Won", desc: get(iDesc) });
+    } else {
+      deals.unshift({ id: uid(), createdAt: Date.now(), kind:"lead", deal: name, company: get(iName), contact: get(iContact),
+        email: get(iEmail), phone: get(iPhone), service: get(iServ), industry: get(iInd), website: get(iWeb),
+        amount: parseAmt(get(iAmt)), stage: matchStage(get(iStage)), status:"Active", desc: get(iDesc) });
+    }
     added++;
   }
-  save(); render(); alert(added + " deal(s) imported. 🐝");
+  save(); render(); alert(added + " record(s) imported. 🐝");
 }
 function matchStage(s) {
   if (!s) return "New Lead";
@@ -537,7 +537,9 @@ function matchStage(s) {
 /* ---------- Wire up ---------- */
 fillStageSelect();
 document.getElementById("currency").value = currency;
-document.getElementById("addBtn").onclick = () => openModal(null);
+document.getElementById("f_kind").onchange = applyKindUI;
+document.getElementById("addBtn").onclick = () => openModal(null, "lead");
+document.getElementById("addClientBtn").onclick = () => openModal(null, "client");
 document.getElementById("closeBtn").onclick = closeModal;
 document.getElementById("cancelBtn").onclick = closeModal;
 document.getElementById("saveBtn").onclick = saveModal;
@@ -547,14 +549,8 @@ document.getElementById("search").addEventListener("input", e => { search = e.ta
 document.getElementById("currency").addEventListener("change", e => { currency = e.target.value; localStorage.setItem(CUR_KEY, currency); render(); });
 document.getElementById("exportBtn").onclick = exportCSV;
 document.getElementById("importBtn").onclick = () => document.getElementById("importFile").click();
-document.getElementById("importFile").addEventListener("change", e => {
-  const f = e.target.files[0]; if (!f) return;
-  const reader = new FileReader(); reader.onload = () => importCSV(reader.result); reader.readAsText(f); e.target.value = "";
-});
-document.getElementById("resetBtn").onclick = () => {
-  if (!confirm("Reset all data back to your July 2026 sheet? This clears any changes in this browser.")) return;
-  deals = seed(); render();
-};
+document.getElementById("importFile").addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const reader = new FileReader(); reader.onload = () => importCSV(reader.result); reader.readAsText(f); e.target.value = ""; });
+document.getElementById("resetBtn").onclick = () => { if (!confirm("Reset all data back to your sheets (7 leads + 12 clients)? This clears changes in this browser.")) return; deals = seed(); render(); };
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
 render();
