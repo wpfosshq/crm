@@ -238,6 +238,13 @@ let route = "dashboard";
 let editingId = null;
 let search = "";
 let sortKey = null, sortDir = 1;
+let filters = { clients: "all", leads: "all", contacts: "all" };
+
+const FILTER_OPTS = {
+  clients: [["all","All clients"],["active","Active only"],["past","Past only"],["won","Won deals"]],
+  leads:   [["all","All stages"],["New Lead","New Lead"],["Contacted","Contacted"],["Proposal/Price Quote Sent","Proposal / Quote sent"],["Negotiation","Negotiation"]],
+  contacts:[["all","Everyone"],["lead","Leads only"],["client","Clients only"],["active","Active clients"],["past","Past clients"]],
+};
 
 const NAV = [
   { id: "dashboard", label: "Dashboard", ico: "📊" },
@@ -310,9 +317,45 @@ function viewDashboard() {
     <div class="section-title">Sales pipeline by stage</div><div class="breakdown">${bars}</div>`;
 }
 
+/* ---------- Filtering + default order ---------- */
+function filterBar(route, count, total) {
+  const opts = FILTER_OPTS[route]; if (!opts) return "";
+  const cur = filters[route] || "all";
+  const shown = count === total ? `${total}` : `${count} of ${total}`;
+  return `<div style="display:flex;gap:10px;align-items:center;margin:0 0 14px;flex-wrap:wrap">
+    <span class="muted" style="font-size:13px">Filter:</span>
+    <select id="filterSel" class="search" style="min-width:170px">${opts.map(o => `<option value="${esc(o[0])}" ${o[0]===cur?"selected":""}>${esc(o[1])}</option>`).join("")}</select>
+    <span class="muted" style="font-size:12px">${shown} shown · click a column header to sort</span></div>`;
+}
+function applyFilter(list, route) {
+  const f = filters[route] || "all";
+  if (f === "all") return list;
+  if (route === "clients") {
+    if (f === "active") return list.filter(d => isClient(d) && d.status !== "Past");
+    if (f === "past")   return list.filter(d => isClient(d) && d.status === "Past");
+    if (f === "won")    return list.filter(isWon);
+  }
+  if (route === "leads") return list.filter(d => d.stage === f);
+  if (route === "contacts") {
+    if (f === "lead")   return list.filter(isLead);
+    if (f === "client") return list.filter(isClient);
+    if (f === "active") return list.filter(d => isClient(d) && d.status !== "Past");
+    if (f === "past")   return list.filter(d => isClient(d) && d.status === "Past");
+  }
+  return list;
+}
+// Default order (used until a column is clicked): active clients first, etc.
+const stageOrder = k => { const i = STAGES.findIndex(s => s.key === k); return i < 0 ? 99 : i; };
+function clientRank(d) { if (isClient(d)) return d.status === "Past" ? 2 : 0; if (isWon(d)) return 1; return 3; }
+function contactRank(d) { if (isClient(d)) return d.status === "Past" ? 1 : 0; return 2; }
+const cmpClients  = (a,b) => (clientRank(a)-clientRank(b)) || (b.amount||0)-(a.amount||0) || (a.company||"").localeCompare(b.company||"");
+const cmpContacts = (a,b) => (contactRank(a)-contactRank(b)) || (a.contact||a.company||"").localeCompare(b.contact||b.company||"");
+const cmpLeads    = (a,b) => (stageOrder(a.stage)-stageOrder(b.stage)) || (b.amount||0)-(a.amount||0);
+const cmpLost     = (a,b) => (b.amount||0)-(a.amount||0);
+
 /* ---------- Tables ---------- */
-function dealTable(list, cols) {
-  if (!list.length) return `<div class="table-wrap"><div class="empty">Nothing here yet. Use “+ Add Lead” or “+ Client”. 🐝</div></div>`;
+function dealTable(list, cols, defaultCmp) {
+  if (!list.length) return `<div class="table-wrap"><div class="empty">Nothing matches. Try a different filter, or use “+ Add Lead” / “+ Client”. 🐝</div></div>`;
   if (sortKey) list = list.slice().sort((a, b) => {
     let x, y;
     if (sortKey === "amount") { x = Number(a.amount)||0; y = Number(b.amount)||0; }
@@ -320,6 +363,7 @@ function dealTable(list, cols) {
     else { x = (a[sortKey]||"").toString().toLowerCase(); y = (b[sortKey]||"").toString().toLowerCase(); }
     return x < y ? -sortDir : x > y ? sortDir : 0;
   });
+  else if (defaultCmp) list = list.slice().sort(defaultCmp);
   const head = cols.map(c => `<th data-k="${c.k}">${c.h}${sortKey===c.k?(sortDir>0?" ▲":" ▼"):""}</th>`).join("");
   const rows = list.map(d => `<tr data-id="${d.id}" class="row-accent" style="border-left-color:${statusColor(d)}">${cols.map(c => c.cell(d)).join("")}</tr>`).join("");
   return `<div class="table-wrap"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -327,29 +371,33 @@ function dealTable(list, cols) {
 function wireTable() {
   document.querySelectorAll("th[data-k]").forEach(th => th.onclick = () => { const k = th.dataset.k; if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; } render(); });
   document.querySelectorAll("tr[data-id]").forEach(tr => tr.onclick = () => openModal(tr.dataset.id));
+  const fs = document.getElementById("filterSel");
+  if (fs) fs.onchange = () => { filters[route] = fs.value; render(); };
 }
 const contactCell = d => `<td>${d.contact?esc(d.contact):'<span class="muted">—</span>'}${(d.email||d.phone)?`<div class="sub">${d.email?esc(d.email):""}${d.email&&d.phone?" · ":""}${d.phone?esc(d.phone):""}</div>`:""}</td>`;
 
 function viewLeads() {
-  const list = filtered(deals.filter(isOpen));
-  return `<p class="muted" style="margin-top:0">Active leads in your sales pipeline — everyone not yet won or lost.</p>` + dealTable(list, [
+  const base = filtered(deals.filter(isOpen));
+  const list = applyFilter(base, "leads");
+  return `<p class="muted" style="margin-top:0">Active leads in your sales pipeline — everyone not yet won or lost.</p>` + filterBar("leads", list.length, base.length) + dealTable(list, [
     { k:"deal", h:"Deal", cell: d => `<td><strong>${esc(d.deal)}</strong><div class="sub">${esc(d.company||"—")}</div></td>` },
     { k:"contact", h:"Contact", cell: contactCell },
     { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
     { k:"stage", h:"Stage", cell: d => `<td>${pill(d.stage, stageColor(d.stage))}</td>` },
     { k:"amount", h:"Amount", cell: d => `<td class="amt">${money(d.amount)}</td>` },
-  ]);
+  ], cmpLeads);
 }
 function viewClients() {
-  const list = filtered(deals.filter(d => isClient(d) || isWon(d)));
-  return `<p class="muted" style="margin-top:0">Your clients — the customer database plus won deals. <span style="color:var(--green)">Active</span> / <span class="muted">Past</span> / <span style="color:var(--green)">Won</span>.</p>` + dealTable(list, [
+  const base = filtered(deals.filter(d => isClient(d) || isWon(d)));
+  const list = applyFilter(base, "clients");
+  return `<p class="muted" style="margin-top:0">Your clients — the customer database plus won deals. <span style="color:var(--green)">Active</span> / <span class="muted">Past</span> / <span style="color:var(--green)">Won</span>. Active clients are listed first.</p>` + filterBar("clients", list.length, base.length) + dealTable(list, [
     { k:"company", h:"Client", cell: d => `<td><strong>${esc(d.company||nameOf(d))}</strong>${d.industry?`<div class="sub">${esc(d.industry)}</div>`:(isWon(d)?`<div class="sub">${esc(d.deal)}</div>`:"")}</td>` },
     { k:"contact", h:"Contact", cell: contactCell },
     { k:"service", h:"Services", cell: d => `<td>${esc(d.service||"—")}</td>` },
     { k:"website", h:"Website", cell: d => `<td>${webLink(d.website)}</td>` },
     { k:"status", h:"Status", cell: d => `<td>${pill(statusLabel(d), statusColor(d))}</td>` },
     { k:"amount", h:"Paid", cell: d => `<td class="amt" style="color:var(--green)">${money(d.amount)}</td>` },
-  ]);
+  ], cmpClients);
 }
 function viewLost() {
   const list = filtered(deals.filter(isLost));
@@ -359,17 +407,18 @@ function viewLost() {
     { k:"service", h:"Service", cell: d => `<td>${esc(d.service||"—")}</td>` },
     { k:"stage", h:"Status", cell: d => `<td>${pill(d.stage, stageColor(d.stage))}</td>` },
     { k:"amount", h:"Lost value", cell: d => `<td class="amt" style="color:var(--red)">${money(d.amount)}</td>` },
-  ]);
+  ], cmpLost);
 }
 function viewContacts() {
-  const list = filtered(deals);
-  return `<p class="muted" style="margin-top:0">Everyone in your book — leads and clients — with contact info.</p>` + dealTable(list, [
+  const base = filtered(deals);
+  const list = applyFilter(base, "contacts");
+  return `<p class="muted" style="margin-top:0">Everyone in your book — leads and clients — with contact info. Active clients first.</p>` + filterBar("contacts", list.length, base.length) + dealTable(list, [
     { k:"contact", h:"Contact", cell: d => `<td><strong>${d.contact?esc(d.contact):'<span class="muted">—</span>'}</strong><div class="sub">${esc(d.company||"")}</div></td>` },
     { k:"email", h:"Email", cell: d => `<td>${d.email?`<a class="link" href="mailto:${esc(d.email)}" onclick="event.stopPropagation()">${esc(d.email)}</a>`:'<span class="muted">—</span>'}</td>` },
     { k:"phone", h:"Phone", cell: d => `<td>${d.phone?`<a class="link" href="tel:${esc(d.phone)}" onclick="event.stopPropagation()">${esc(d.phone)}</a>`:'<span class="muted">—</span>'}</td>` },
     { k:"kind", h:"Type", cell: d => `<td>${isClient(d)?pill("Client","#3aa0ff"):pill("Lead","#f5b301")}</td>` },
     { k:"status", h:"Status", cell: d => `<td>${pill(statusLabel(d), statusColor(d))}</td>` },
-  ]);
+  ], cmpContacts);
 }
 
 /* ---------- Pipeline (leads only) ---------- */
